@@ -2,7 +2,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r14";
+version = "v0.1-2026/05/16r18";
 **/
 
 
@@ -57,6 +57,9 @@ ph_offset_y = 5;
 ph_offset_x = 0;
 // how high above z=0 the base of the pot holder is. this allows the pot holder to be raised above the peg panel if needed, in mm
 ph_base_offset_z = 0;
+//how many times to multiply the pots in X direction. These will be joined to each other.
+number_of_pots = 1; 
+
 
 module assembly() {
 /* the assembly view parts are fixed size and posiotion */    
@@ -90,7 +93,8 @@ module assembly() {
             height = 20, 
             base_thickness = 5, 
             offset_y = 5,
-            offset_x = 0
+            offset_x = 0,
+            number_of_pots = 1
         );
     }
 }
@@ -109,7 +113,17 @@ if (which == "screwdriver_holder") {
         screwdriver_hole_chamfer_depth = screwdriver_hole_chamfer_depth
     );
 } else if (which == "pot_holder") {
-    pot_holder_assembly(panel_size=panel_size,inner_dia = inner_dia, outer_dia = outer_dia, height = height, base_thickness = ph_base_thickness, offset_y = ph_offset_y, offset_x = ph_offset_x, base_offset_z = ph_base_offset_z);
+    pot_holder_assembly(
+        panel_size=panel_size,
+        inner_dia = inner_dia, 
+        outer_dia = outer_dia, 
+        height = height, 
+        base_thickness = ph_base_thickness, 
+        offset_y = ph_offset_y, 
+        offset_x = ph_offset_x, 
+        base_offset_z = ph_base_offset_z, 
+        number_of_pots = number_of_pots
+    );
 } else if (which == "assembly") {
     assembly();
 }

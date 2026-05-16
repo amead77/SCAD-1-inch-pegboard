@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r02";
+version = "v0.1-2026/05/16r08";
 **/
 
 
@@ -37,19 +37,22 @@ module pot() {
     }
 }
 
-module pot_holder_assembly(
-        panel_size = [3, 4, 2], // in PEG SPACE UNITS, not mm
+module pot_holder(
+        panel_size = [
+            3, // in PEG SPACE UNITS, not mm
+            4, // in MM, thickness of the panel
+            2 // in PEG SPACE UNITS, not mm
+        ],
         outer_dia = 50, //outer diameter of the pot holder, including the lip
         inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
         height = 10, // height of the pot holder
         base_thickness = 3, //thickness of the base
         offset_y = 5, //offset of the pot holder from the peg panel, in mm
         offset_x = 0, //offset of the pot holder from the side edge of the peg panel, in mm
-        base_offset_z = 0 //how high above z=0 the base of the pot holder is. this allows the pot holder to be raised above the peg panel if needed, in mm
+        base_offset_z = 0, //how high above z=0 the base of the pot holder is. this allows the pot holder to be raised above the peg panel if needed, in mm
+        number_of_pots = 1 //how many times to multiply the pots in X direction. These will be joined to each other.
+
     ) {
-/*
-This creates a pegboard pot holder with a lip. it is offsett away from the peg panel and joined to it
-*/
     difference() {
         union() {
             translate([offset_x, 0, base_offset_z]) {
@@ -66,6 +69,51 @@ This creates a pegboard pot holder with a lip. it is offsett away from the peg p
         }
         translate([(outer_dia / 2) + offset_x, (outer_dia / 2) + offset_y, base_thickness+base_offset_z]) {
             cylinder(d=inner_dia, h=height - base_thickness);
+        }
+    }
+
+}
+
+
+module pot_holder_assembly(
+        panel_size = [
+            3, // in PEG SPACE UNITS, not mm
+            4, // in MM, thickness of the panel
+            2 // in PEG SPACE UNITS, not mm
+        ],
+        outer_dia = 50, //outer diameter of the pot holder, including the lip
+        inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
+        height = 10, // height of the pot holder
+        base_thickness = 3, //thickness of the base
+        offset_y = 5, //offset of the pot holder from the peg panel, in mm
+        offset_x = 0, //offset of the pot holder from the side edge of the peg panel, in mm
+        base_offset_z = 0, //how high above z=0 the base of the pot holder is. this allows the pot holder to be raised above the peg panel if needed, in mm
+        number_of_pots = 1 //how many times to multiply the pots in X direction. These will be joined to each other.
+    ) {
+/*
+This creates a pegboard pot holder with a lip. it is offsett away from the peg panel and joined to it
+*/
+    union() {
+        for (i = [0:number_of_pots-1]) {
+            translate([i*outer_dia, 0, 0]) {
+                pot_holder(
+                    panel_size = panel_size,
+                    outer_dia = outer_dia,
+                    inner_dia = inner_dia,
+                    height = height,
+                    base_thickness = base_thickness,
+                    offset_y = offset_y,
+                    offset_x = offset_x,
+                    base_offset_z = base_offset_z,
+                    number_of_pots = number_of_pots
+                );
+            }
+        }
+        translate([offset_x, 0, base_offset_z]) {
+            cube([
+                number_of_pots*outer_dia, 
+                (outer_dia / 2) + offset_y, 
+                base_thickness]);
         }
     }
     peg_panel(panel_size=panel_size);
