@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r08";
+version = "v0.1-2026/05/16r19";
 **/
 
 
@@ -50,6 +50,7 @@ module pot_holder(
         offset_y = 5, //offset of the pot holder from the peg panel, in mm
         offset_x = 0, //offset of the pot holder from the side edge of the peg panel, in mm
         base_offset_z = 0, //how high above z=0 the base of the pot holder is. this allows the pot holder to be raised above the peg panel if needed, in mm
+        front_cutout = true, // whether to cut out the front of the pot holder to make it easier to access the pot, default is 0.25% the diameter of the outer diameter
         number_of_pots = 1 //how many times to multiply the pots in X direction. These will be joined to each other.
 
     ) {
@@ -70,6 +71,23 @@ module pot_holder(
         translate([(outer_dia / 2) + offset_x, (outer_dia / 2) + offset_y, base_thickness+base_offset_z]) {
             cylinder(d=inner_dia, h=height - base_thickness);
         }
+
+        if (front_cutout) {
+            translate([
+                (outer_dia / 4) + offset_x, 
+                (outer_dia / 2) + offset_y, 
+                base_offset_z+base_thickness
+            ]) {
+                cube([
+                    (outer_dia / 2), 
+                    (outer_dia / 2), 
+                    height-base_thickness
+                    ], 
+                    center = false
+                );
+            }
+        }
+
     }
 
 }
@@ -88,6 +106,7 @@ module pot_holder_assembly(
         offset_y = 5, //offset of the pot holder from the peg panel, in mm
         offset_x = 0, //offset of the pot holder from the side edge of the peg panel, in mm
         base_offset_z = 0, //how high above z=0 the base of the pot holder is. this allows the pot holder to be raised above the peg panel if needed, in mm
+        front_cutout = true, // whether to cut out the front of the pot holder to make it easier to access the pot, default is 0.25% the diameter of the outer diameter
         number_of_pots = 1 //how many times to multiply the pots in X direction. These will be joined to each other.
     ) {
 /*
@@ -105,6 +124,7 @@ This creates a pegboard pot holder with a lip. it is offsett away from the peg p
                     offset_y = offset_y,
                     offset_x = offset_x,
                     base_offset_z = base_offset_z,
+                    front_cutout = front_cutout,
                     number_of_pots = number_of_pots
                 );
             }

@@ -2,7 +2,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r20";
+version = "v0.1-2026/05/16r28";
 **/
 
 
@@ -24,7 +24,7 @@ panel_size = [
 
 /* [screwdriver rail specific dimensions] */
 //diameter of the screwdriver holder holes.
-screwdriver_dia = 4; 
+screwdriver_dia = 3.5; 
 //thickness of the base
 sd_base_thickness = 15; 
 //offset of the screwdriver holes from the side, in mm
@@ -59,7 +59,8 @@ ph_offset_x = 0;
 ph_base_offset_z = 0;
 //how many times to multiply the pots in X direction. These will be joined to each other.
 ph_number_of_pots = 1; 
-
+// whether to cut out the front of the pot holder to make it easier to access the pot, default is 0.25% the diameter of the outer diameter
+ph_front_cutout = true; 
 
 module assembly() {
 /* the assembly view parts are fixed size and posiotion */    
@@ -94,6 +95,8 @@ module assembly() {
             base_thickness = 5, 
             offset_y = 5,
             offset_x = 0,
+            base_offset_z = 0,
+            front_cutout = true,
             number_of_pots = 1
         );
     }
@@ -113,17 +116,20 @@ if (which == "screwdriver_holder") {
         screwdriver_hole_chamfer_depth = screwdriver_hole_chamfer_depth
     );
 } else if (which == "pot_holder") {
-    pot_holder_assembly(
-        panel_size=panel_size,
-        inner_dia = ph_inner_dia, 
-        outer_dia = ph_outer_dia, 
-        height = ph_height, 
-        base_thickness = ph_base_thickness, 
-        offset_y = ph_offset_y, 
-        offset_x = ph_offset_x, 
-        base_offset_z = ph_base_offset_z, 
-        number_of_pots = ph_number_of_pots
-    );
+    render() {
+        pot_holder_assembly(
+            panel_size=panel_size,
+            inner_dia = ph_inner_dia, 
+            outer_dia = ph_outer_dia, 
+            height = ph_height, 
+            base_thickness = ph_base_thickness, 
+            offset_y = ph_offset_y, 
+            offset_x = ph_offset_x, 
+            base_offset_z = ph_base_offset_z, 
+            front_cutout = ph_front_cutout,
+            number_of_pots = ph_number_of_pots
+        );
+    }
 } else if (which == "assembly") {
     assembly();
 }
