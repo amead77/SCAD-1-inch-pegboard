@@ -2,17 +2,18 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r28";
+version = "v0.1-2026/05/16r41";
 **/
 
 
 
 include <screwdriver holder.scad>;
 include <pot holder.scad>;
+include <hooks.scad>;
 
 /* [Choose part] */
 // assembly view all parts are fixed, changing 'which' gives you customising options
-which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly"]
+which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly", "hooks"]
 
 /* [panel sizing, for all] */
 //PEG UNITS,            MM,                PEG UNITS
@@ -61,6 +62,21 @@ ph_base_offset_z = 0;
 ph_number_of_pots = 1; 
 // whether to cut out the front of the pot holder to make it easier to access the pot, default is 0.25% the diameter of the outer diameter
 ph_front_cutout = true; 
+
+/* [hooks specific dimensions] */
+// diameter of the hook pin
+hook_dia = 6.0;
+// length of the hook pin
+hook_length = 20;
+// spacing between hooks, in mm
+hook_spacing = 30.0;
+// offset of the hooks from the side, in mm
+hook_offset_x = 12.7;
+// offset of the hooks from the bottom edge of the base
+hook_offset_z = 5.0;
+// hook shape
+hook_shape = "cylindrical"; // ["cylindrical", "square"]
+
 
 module assembly() {
 /* the assembly view parts are fixed size and posiotion */    
@@ -132,4 +148,14 @@ if (which == "screwdriver_holder") {
     }
 } else if (which == "assembly") {
     assembly();
+} else if (which == "hooks") {
+    hook_rail(
+        panel_size = panel_size, 
+        hook_dia = hook_dia, 
+        hook_length = hook_length, 
+        spacing = hook_spacing,
+        offset_x = hook_offset_x,
+        offset_z = hook_offset_z,
+        hook_shape = hook_shape
+    );
 }
