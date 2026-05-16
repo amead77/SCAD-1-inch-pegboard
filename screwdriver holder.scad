@@ -11,6 +11,9 @@ $fn = 64;
 
 
 module screwdriver_holder_assembly(
+/*
+the panel size determines the number of holes for the screwdriver holder, and the overall dimensions
+*/
         panel_size = [
             3, // in PEG SPACE UNITS, not mm
             4, // thickness of the panel, in mm
@@ -22,8 +25,13 @@ module screwdriver_holder_assembly(
         offset_x = 25, //offset of the screwdriver holes from the side, in mm
         offset_y = 25, //offset of the screwdriver holder from the peg panel, in mm
         front_edge_offset = 5, // how far the screwdriver holder is offset from the front edge of the peg panel, in mm
-        screwdriver_rail_position = 20 //how high above z=0 the screwdriver rail and holes are. in mm
+        screwdriver_rail_position = 20, //how high above z=0 the screwdriver rail and holes are. in mm
+        hole_spacing = 25.4 // 1 inch - this is pegboard hole spacing, used to calculate the overall size of the panel and the number of holes.
     ) {
+        rail_width = panel_size[0] * hole_spacing;
+        usable_width = max(0, rail_width - 2 * offset_x);
+        hole_count = max(1, floor(usable_width / screwdriver_hole_spacing) + 1);
+
 /*
 This creates a pegboard screwdriver holder. it is offset away from the peg panel and joined to it.
 the number of holes is determined by the panel size and the spacing between holes.
@@ -33,13 +41,13 @@ the number of holes is determined by the panel size and the spacing between hole
             difference() {
                 translate([0, 0, screwdriver_rail_position]) {
                     cube([
-                        panel_size[0] * screwdriver_hole_spacing, 
+                        rail_width, 
                         (offset_y+screwdriver_dia+front_edge_offset), 
                         base_thickness
                     ], center = false);
                 }
                 // screwdriver holes
-                for (i = [0:panel_size[0] - 2]) {
+                for (i = [0:hole_count - 1]) {
                     translate([offset_x + i * screwdriver_hole_spacing, offset_y, screwdriver_rail_position - 5]) {
                         cylinder(d = screwdriver_dia, h = base_thickness + 10); // extra height to ensure it cuts through the base
                     }
