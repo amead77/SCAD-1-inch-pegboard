@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r27";
+version = "v0.1-2026/05/16r28";
 **/
 
 include <peg panel.scad>;
@@ -17,9 +17,6 @@ $fn = 64;
 
 
 module screwdriver_holder_assembly(
-/*
-the panel size determines the number of holes for the screwdriver holder, and the overall dimensions
-*/
         panel_size = [
             3, // in PEG SPACE UNITS, not mm
             4, // thickness of the panel, in mm
@@ -36,15 +33,15 @@ the panel size determines the number of holes for the screwdriver holder, and th
         screwdriver_rail_position = 20, //how high above z=0 the screwdriver rail and holes are. in mm
         hole_spacing = 25.4 // 1 inch - this is pegboard hole spacing, used to calculate the overall size of the panel and the number of holes.
     ) {
-        rail_width = panel_size[0] * hole_spacing;
-        usable_width = max(0, rail_width - 2 * offset_x);
-        hole_count = max(1, floor(usable_width / screwdriver_hole_spacing) + 1);
-        base_top_z = screwdriver_rail_position + base_thickness;
-
 /*
 This creates a pegboard screwdriver holder. it is offset away from the peg panel and joined to it.
 the number of holes is determined by the panel size and the spacing between holes.
 */
+    rail_width = panel_size[0] * hole_spacing;
+    usable_width = max(0, rail_width - 2 * offset_x);
+    hole_count = max(1, floor(usable_width / screwdriver_hole_spacing) + 1);
+    base_top_z = screwdriver_rail_position + base_thickness;
+
         union() {
             // base of the screwdriver holder
             difference() {

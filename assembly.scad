@@ -2,7 +2,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r18";
+version = "v0.1-2026/05/16r20";
 **/
 
 
@@ -28,9 +28,9 @@ screwdriver_dia = 4;
 //thickness of the base
 sd_base_thickness = 15; 
 //offset of the screwdriver holes from the side, in mm
-offset_x = 8; 
+sd_offset_x = 8; 
 //offset of the screwdriver holder from the peg panel, in mm
-offset_y = 20; 
+sd_offset_y = 20; 
 //how high above z=0 the screwdriver
 screwdriver_rail_position = 10; 
 //spacing between screwdriver holes
@@ -40,15 +40,15 @@ screwdriver_hole_chamfer_width = 1;
 // depth of the chamfer for the screwdriver holes, in mm
 screwdriver_hole_chamfer_depth = 5; 
 // how far the screwdriver holder is offset from the front edge of the peg panel, in mm
-front_edge_offset = 5; 
+sd_front_edge_offset = 5; 
 
 /* [pot holder specific dimensions] */
 // the size of what you want to put in it, plus some clearance
-inner_dia = 70;
+ph_inner_dia = 70;
 // choose a value > inner_dia for the outer diameter to create a lip that will hold the pot in place
-outer_dia = 74;
+ph_outer_dia = 74;
 // height of the holder that will support the pot
-height = 20;
+ph_height = 20;
 // thickness of the base that the pot sits on, subtracted from height
 ph_base_thickness = 5;
 // offset of the pot holder from the peg panel, in mm
@@ -58,7 +58,7 @@ ph_offset_x = 0;
 // how high above z=0 the base of the pot holder is. this allows the pot holder to be raised above the peg panel if needed, in mm
 ph_base_offset_z = 0;
 //how many times to multiply the pots in X direction. These will be joined to each other.
-number_of_pots = 1; 
+ph_number_of_pots = 1; 
 
 
 module assembly() {
@@ -104,9 +104,9 @@ if (which == "screwdriver_holder") {
         panel_size = panel_size,  
         screwdriver_dia = screwdriver_dia, 
         base_thickness = sd_base_thickness, 
-        offset_x = offset_x, 
-        offset_y = offset_y,
-        front_edge_offset = front_edge_offset,
+        offset_x = sd_offset_x, 
+        offset_y = sd_offset_y,
+        front_edge_offset = sd_front_edge_offset,
         screwdriver_rail_position = screwdriver_rail_position,
         screwdriver_hole_spacing = screwdriver_hole_spacing,
         screwdriver_hole_chamfer_width = screwdriver_hole_chamfer_width,
@@ -115,14 +115,14 @@ if (which == "screwdriver_holder") {
 } else if (which == "pot_holder") {
     pot_holder_assembly(
         panel_size=panel_size,
-        inner_dia = inner_dia, 
-        outer_dia = outer_dia, 
-        height = height, 
+        inner_dia = ph_inner_dia, 
+        outer_dia = ph_outer_dia, 
+        height = ph_height, 
         base_thickness = ph_base_thickness, 
         offset_y = ph_offset_y, 
         offset_x = ph_offset_x, 
         base_offset_z = ph_base_offset_z, 
-        number_of_pots = number_of_pots
+        number_of_pots = ph_number_of_pots
     );
 } else if (which == "assembly") {
     assembly();
