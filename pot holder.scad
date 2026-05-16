@@ -1,5 +1,12 @@
 // small pot holder that attaches to a pegboard with 1" hole spacing.
 
+/**
+//next 2 lines used only by my 'on save' script. can be ignored otherwise.
+//AUTO-V
+version = "v0.1-2026/05/16r02";
+**/
+
+
 include <peg panel.scad>;
 
 $fn = 64;

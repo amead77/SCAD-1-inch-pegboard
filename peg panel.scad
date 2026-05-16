@@ -1,5 +1,13 @@
 //the back panel with pegs for the pegboard.
 
+/**
+//next 2 lines used only by my 'on save' script. can be ignored otherwise.
+//AUTO-V
+version = "v0.1-2026/05/16r02";
+**/
+
+
+
 module peg_panel(
     panel_size = [
         4, // in PEG SPACE UNITS, not mm

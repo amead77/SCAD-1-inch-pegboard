@@ -1,5 +1,11 @@
 // small pot holder that attaches to a pegboard with 1" hole spacing.
 
+/**
+//next 2 lines used only by my 'on save' script. can be ignored otherwise.
+//AUTO-V
+version = "v0.1-2026/05/16r27";
+**/
+
 include <peg panel.scad>;
 $fn = 64;
 
@@ -21,6 +27,8 @@ the panel size determines the number of holes for the screwdriver holder, and th
         ], 
         screwdriver_dia = 10, //diameter of the screwdriver holder holes.
         screwdriver_hole_spacing = 25.4, //spacing between screwdriver holes
+        screwdriver_hole_chamfer_width = 1, // chamfer for the screwdriver holes
+        screwdriver_hole_chamfer_depth = 5, // depth of the chamfer for the screwdriver holes
         base_thickness = 8, //thickness of the base
         offset_x = 25, //offset of the screwdriver holes from the side, in mm
         offset_y = 25, //offset of the screwdriver holder from the peg panel, in mm
@@ -31,6 +39,7 @@ the panel size determines the number of holes for the screwdriver holder, and th
         rail_width = panel_size[0] * hole_spacing;
         usable_width = max(0, rail_width - 2 * offset_x);
         hole_count = max(1, floor(usable_width / screwdriver_hole_spacing) + 1);
+        base_top_z = screwdriver_rail_position + base_thickness;
 
 /*
 This creates a pegboard screwdriver holder. it is offset away from the peg panel and joined to it.
@@ -50,6 +59,16 @@ the number of holes is determined by the panel size and the spacing between hole
                 for (i = [0:hole_count - 1]) {
                     translate([offset_x + i * screwdriver_hole_spacing, offset_y, screwdriver_rail_position - 5]) {
                         cylinder(d = screwdriver_dia, h = base_thickness + 10); // extra height to ensure it cuts through the base
+                    }
+                    translate([
+                        offset_x + i * screwdriver_hole_spacing,
+                        offset_y,
+                        base_top_z - screwdriver_hole_chamfer_depth
+                    ]) {
+                            cylinder(
+                                d1 = screwdriver_dia, 
+                                d2 = screwdriver_dia + 2 * screwdriver_hole_chamfer_width, 
+                                h = screwdriver_hole_chamfer_depth, center = false);
                     }
                 }
             }

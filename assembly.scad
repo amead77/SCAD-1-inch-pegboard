@@ -1,7 +1,17 @@
+
+/**
+//next 2 lines used only by my 'on save' script. can be ignored otherwise.
+//AUTO-V
+version = "v0.1-2026/05/16r14";
+**/
+
+
+
 include <screwdriver holder.scad>;
 include <pot holder.scad>;
 
 /* [Choose part] */
+// assembly view all parts are fixed, changing 'which' gives you customising options
 which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly"]
 
 /* [panel sizing, for all] */
@@ -13,12 +23,24 @@ panel_size = [
 ];
 
 /* [screwdriver rail specific dimensions] */
-screwdriver_dia = 4; //diameter of the screwdriver holder holes.
-sd_base_thickness = 15; //thickness of the base
-offset_x = 8; //offset of the screwdriver holes from the side, in mm
-offset_y = 20; //offset of the screwdriver holder from the peg panel, in mm
-screwdriver_rail_position = 10; //how high above z=0 the screwdriver
-screwdriver_hole_spacing = 20.0; //spacing between screwdriver holes
+//diameter of the screwdriver holder holes.
+screwdriver_dia = 4; 
+//thickness of the base
+sd_base_thickness = 15; 
+//offset of the screwdriver holes from the side, in mm
+offset_x = 8; 
+//offset of the screwdriver holder from the peg panel, in mm
+offset_y = 20; 
+//how high above z=0 the screwdriver
+screwdriver_rail_position = 10; 
+//spacing between screwdriver holes
+screwdriver_hole_spacing = 20.0; 
+// chamfer for the screwdriver holes, in mm
+screwdriver_hole_chamfer_width = 1; 
+// depth of the chamfer for the screwdriver holes, in mm
+screwdriver_hole_chamfer_depth = 5; 
+// how far the screwdriver holder is offset from the front edge of the peg panel, in mm
+front_edge_offset = 5; 
 
 /* [pot holder specific dimensions] */
 // the size of what you want to put in it, plus some clearance
@@ -48,9 +70,12 @@ module assembly() {
             screwdriver_dia = 10, 
             base_thickness = 10, 
             offset_x = 10, 
-            offset_y = 10,
+            offset_y = 25,
+            front_edge_offset = 5,
             screwdriver_rail_position = 15,
-            screwdriver_hole_spacing = 25
+            screwdriver_hole_spacing = 25,
+            screwdriver_hole_chamfer_width = 1, // chamfer for the screwdriver holes
+            screwdriver_hole_chamfer_depth = 5 // depth of the chamfer for the screwdriver holes
         );
     }
     translate([100, 0, 0]) {
@@ -77,8 +102,11 @@ if (which == "screwdriver_holder") {
         base_thickness = sd_base_thickness, 
         offset_x = offset_x, 
         offset_y = offset_y,
+        front_edge_offset = front_edge_offset,
         screwdriver_rail_position = screwdriver_rail_position,
-        screwdriver_hole_spacing = screwdriver_hole_spacing
+        screwdriver_hole_spacing = screwdriver_hole_spacing,
+        screwdriver_hole_chamfer_width = screwdriver_hole_chamfer_width,
+        screwdriver_hole_chamfer_depth = screwdriver_hole_chamfer_depth
     );
 } else if (which == "pot_holder") {
     pot_holder_assembly(panel_size=panel_size,inner_dia = inner_dia, outer_dia = outer_dia, height = height, base_thickness = ph_base_thickness, offset_y = ph_offset_y, offset_x = ph_offset_x, base_offset_z = ph_base_offset_z);
