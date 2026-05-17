@@ -2,7 +2,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r41";
+version = "v0.1-2026/05/17r06";
 **/
 
 
@@ -76,6 +76,8 @@ hook_offset_x = 12.7;
 hook_offset_z = 5.0;
 // hook shape
 hook_shape = "cylindrical"; // ["cylindrical", "square"]
+//hook tip length, this part is on the end of the hook and points upwards. set to 0 for no tip.
+hook_tip_length = 15;
 
 
 module assembly() {
@@ -116,6 +118,21 @@ module assembly() {
             number_of_pots = 1
         );
     }
+    translate([200, 0, 0]) {
+        hook_rail(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            hook_dia = 6.0, 
+            hook_length = 20, 
+            spacing = 30.0,
+            offset_x = 5,
+            offset_z = 5.0,
+            hook_shape = "cylindrical"
+        );
+    }
 }
 
 if (which == "screwdriver_holder") {
@@ -147,7 +164,9 @@ if (which == "screwdriver_holder") {
         );
     }
 } else if (which == "assembly") {
-    assembly();
+    render() {
+        assembly();
+    }
 } else if (which == "hooks") {
     hook_rail(
         panel_size = panel_size, 
@@ -156,6 +175,7 @@ if (which == "screwdriver_holder") {
         spacing = hook_spacing,
         offset_x = hook_offset_x,
         offset_z = hook_offset_z,
-        hook_shape = hook_shape
+        hook_shape = hook_shape,
+        hook_tip_length = hook_tip_length
     );
 }

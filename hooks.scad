@@ -3,10 +3,49 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r40";
+version = "v0.1-2026/05/17r45";
 **/
 
 include <peg panel.scad>;
+
+module round_hook(
+        hook_dia = 6.0, // diameter of the hook pin
+        hook_length = 20, // length of the hook pin
+        hook_tip_length = 10 //length of the hook tip, this part is on the end of the hook and points upwards
+) {
+/*
+Just returns a round hook.
+*/
+    rotate([270, 0, 0]) {
+        cylinder(d = hook_dia, h = hook_length);
+        if (hook_tip_length > 0) {
+            translate([0, 0, hook_length-hook_dia/2]) {
+                rotate([90, 0, 0]) {
+                    cylinder(d = hook_dia, h = hook_tip_length);
+                }
+            }
+        }
+    }
+}
+
+module square_hook(
+        hook_dia = 6.0, // diameter of the hook pin
+        hook_length = 20, // length of the hook pin
+        hook_tip_length = 5 //length of the hook tip, this part is on the end of the hook and points upwards
+) {
+/*
+just returns a square hook
+*/
+    translate([0, (hook_length/2), 0]) {
+        cube([hook_dia, hook_length, hook_dia], center = true);
+    }
+    if (hook_tip_length > 0) {
+        translate([0, hook_length+hook_dia/2, (hook_tip_length/2)]) {
+            cube([hook_dia, hook_dia, hook_tip_length+hook_dia], center = true);
+        }
+    }
+}
+
 
 module hook_rail(
         panel_size = [
@@ -17,10 +56,12 @@ module hook_rail(
         hook_dia = 6.0, // diameter of the hook pin
         hook_length = 20, // length of the hook pin
         spacing = 30.0, // spacing between hooks, in mm
-        offset_x = 12.7, //offset of the hooks from the side, in mm
+        offset_x = 10.0, //offset of the hooks from the side, in mm
         offset_z = 5.0, //offset of the hooks from the bottom edge of the base
         hook_shape = "cylindrical", // ["cylindrical", "square"]
+        hook_tip_length = 10, //length of the hook tip, this part is on the end of the hook and points upwards
         hole_spacing = 25.4 // 1 inch - this is PEGBOARD hole spacing, used to calculate the overall size of the panel and the number of holes.
+        
     ) {
 /*
 This creates a pegboard hook rail. it is offset away from the peg panel and joined to it.
@@ -35,13 +76,9 @@ the number of holes is determined by the panel size and the spacing between hole
             for (i = [0:hole_count - 1]) {
                 translate([offset_x + i * spacing, 0, (hook_dia/2) + offset_z]) {
                     if (hook_shape == "cylindrical") {
-                        rotate([270, 0, 0]) {
-                            cylinder(d = hook_dia, h = hook_length);
-                        }
+                        round_hook(hook_dia = hook_dia, hook_length = hook_length, hook_tip_length = hook_tip_length);
                     } else if (hook_shape == "square") {
-                        translate([0, (hook_length/2), 0]) {
-                            cube([hook_dia, hook_length, hook_dia], center = true);
-                        }
+                        square_hook(hook_dia = hook_dia, hook_length = hook_length, hook_tip_length = hook_tip_length);
                     }
                     
                 }
