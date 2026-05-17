@@ -1,8 +1,17 @@
+/*
+this is the assembly view AND the main file that includes all the parts.
+Use the customiser in openscad to choose which part, then adjust to suit.
+If you don't want 1" spacing you can modify the "peg panel.scad". Or override
+the defaults in peg panel.
+
+
+*/
+
 
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/17r06";
+version = "v0.1-2026/05/17r08";
 **/
 
 
@@ -136,18 +145,20 @@ module assembly() {
 }
 
 if (which == "screwdriver_holder") {
-    screwdriver_holder_assembly(
-        panel_size = panel_size,  
-        screwdriver_dia = screwdriver_dia, 
-        base_thickness = sd_base_thickness, 
-        offset_x = sd_offset_x, 
-        offset_y = sd_offset_y,
-        front_edge_offset = sd_front_edge_offset,
-        screwdriver_rail_position = screwdriver_rail_position,
-        screwdriver_hole_spacing = screwdriver_hole_spacing,
-        screwdriver_hole_chamfer_width = screwdriver_hole_chamfer_width,
-        screwdriver_hole_chamfer_depth = screwdriver_hole_chamfer_depth
-    );
+    render() {
+        screwdriver_holder_assembly(
+            panel_size = panel_size,  
+            screwdriver_dia = screwdriver_dia, 
+            base_thickness = sd_base_thickness, 
+            offset_x = sd_offset_x, 
+            offset_y = sd_offset_y,
+            front_edge_offset = sd_front_edge_offset,
+            screwdriver_rail_position = screwdriver_rail_position,
+            screwdriver_hole_spacing = screwdriver_hole_spacing,
+            screwdriver_hole_chamfer_width = screwdriver_hole_chamfer_width,
+            screwdriver_hole_chamfer_depth = screwdriver_hole_chamfer_depth
+        );
+    }
 } else if (which == "pot_holder") {
     render() {
         pot_holder_assembly(
@@ -168,14 +179,16 @@ if (which == "screwdriver_holder") {
         assembly();
     }
 } else if (which == "hooks") {
-    hook_rail(
-        panel_size = panel_size, 
-        hook_dia = hook_dia, 
-        hook_length = hook_length, 
-        spacing = hook_spacing,
-        offset_x = hook_offset_x,
-        offset_z = hook_offset_z,
-        hook_shape = hook_shape,
-        hook_tip_length = hook_tip_length
-    );
+    render() {
+        hook_rail(
+            panel_size = panel_size, 
+            hook_dia = hook_dia, 
+            hook_length = hook_length, 
+            spacing = hook_spacing,
+            offset_x = hook_offset_x,
+            offset_z = hook_offset_z,
+            hook_shape = hook_shape,
+            hook_tip_length = hook_tip_length
+        );
+    }
 }

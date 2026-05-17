@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r28";
+version = "v0.1-2026/05/17r00";
 **/
 
 include <peg panel.scad>;
