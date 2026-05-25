@@ -54,3 +54,8 @@ Spirit level holder - this comes from the same model as the box, just by having 
 By choosing a side, endcaps, and levels, you can create multi holders, some with openings, some without, at the same time if you want.
 
 ![level2](images/spirit-level-2.png)
+
+
+Licence is CC-non commerical
+
+AI used was co-pilot to refactor and fix my mistakes. co-pilot is very good at that, but cannot create a openscad model from scratch.
