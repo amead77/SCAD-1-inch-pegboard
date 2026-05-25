@@ -15,7 +15,7 @@ Before printing a bunch of stuff, I recommend doing a small print first to check
 
 Anyway, if you like the design, you're welcome to buy me a coffee:
 
-<a href="https://buymeacoffee.com/amead77"><img src="bmc-button.png" alt="Buy Me a Coffee" width="50%" /></a>
+<a href="https://buymeacoffee.com/amead77"><img src="images/bmc-button.png" alt="Buy Me a Coffee" width="50%" /></a>
 
 
 
