@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r53";
+version = "v0.1-2026/05/25r54";
 **/
 
 
@@ -62,6 +62,8 @@ screwdriver_hole_chamfer_width = 1;  // 0.1
 screwdriver_hole_chamfer_depth = 5;  // 0.1
 // how far the screwdriver holder is offset from the front edge of the peg panel, in mm
 sd_front_edge_offset = 5;  // 0.1
+sd_screwdriver_rail_cutout_width = 0; // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
+sd_screwdriver_rail_cutout_chamfer_angle = 20; // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
 
 /* [pot holder specific dimensions] */
 // the size of what you want to put in it, plus some clearance
@@ -141,6 +143,9 @@ module assembly() {
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
             screwdriver_dia = 10, 
+            screwdriver_rail_cutout_width = sd_screwdriver_rail_cutout_width, // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
+            screwdriver_rail_cutout_chamfer_angle = sd_screwdriver_rail_cutout_chamfer_angle, // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
+
             base_thickness = 10, 
             offset_x = 10, 
             offset_y = 25,
@@ -240,6 +245,9 @@ if (which == "screwdriver_holder") {
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
             screwdriver_dia = screwdriver_dia, 
+            screwdriver_rail_cutout_width = sd_screwdriver_rail_cutout_width, // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
+            screwdriver_rail_cutout_chamfer_angle = sd_screwdriver_rail_cutout_chamfer_angle, // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
+
             base_thickness = sd_base_thickness, 
             offset_x = sd_offset_x, 
             offset_y = sd_offset_y,

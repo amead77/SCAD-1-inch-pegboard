@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r00";
+version = "v0.1-2026/05/25r11";
 **/
 
 include <peg panel.scad>;
@@ -34,6 +34,8 @@ module screwdriver_holder_assembly(
         screwdriver_hole_chamfer_width = 1, // chamfer for the screwdriver holes
         screwdriver_hole_chamfer_depth = 5, // depth of the chamfer for the screwdriver holes
         base_thickness = 8, //thickness of the base
+        screwdriver_rail_cutout_width = 0, // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
+        screwdriver_rail_cutout_chamfer_angle = 20, // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
         offset_x = 25, //offset of the screwdriver holes from the side, in mm
         offset_y = 25, //offset of the screwdriver holder from the peg panel, in mm
         front_edge_offset = 5, // how far the screwdriver holder is offset from the front edge of the peg panel, in mm
@@ -45,6 +47,9 @@ This creates a pegboard screwdriver holder. it is offset away from the peg panel
 the number of holes is determined by the panel size and the spacing between holes.
 */
     rail_width = panel_size[0] * hole_spacing;
+    rail_front_y = offset_y + screwdriver_dia + front_edge_offset;
+    cutout_run_y = max(0, rail_front_y - offset_y);
+    cutout_front_width = screwdriver_rail_cutout_width + 2 * cutout_run_y * tan(screwdriver_rail_cutout_chamfer_angle);
     usable_width = max(0, rail_width - 2 * offset_x);
     hole_count = max(1, floor(usable_width / screwdriver_hole_spacing) + 1);
     base_top_z = screwdriver_rail_position + base_thickness;
@@ -55,7 +60,7 @@ the number of holes is determined by the panel size and the spacing between hole
                 translate([0, 0, screwdriver_rail_position]) {
                     cube([
                         rail_width, 
-                        (offset_y+screwdriver_dia+front_edge_offset), 
+                        rail_front_y, 
                         base_thickness
                     ], center = false);
                 }
@@ -73,6 +78,22 @@ the number of holes is determined by the panel size and the spacing between hole
                                 d1 = screwdriver_dia, 
                                 d2 = screwdriver_dia + 2 * screwdriver_hole_chamfer_width, 
                                 h = screwdriver_hole_chamfer_depth, center = false);
+                    }
+                    // cutout for the screwdriver rail, if specified
+                    if (screwdriver_rail_cutout_width > 0) {
+                        translate([
+                            offset_x + i * screwdriver_hole_spacing,
+                            0,
+                            screwdriver_rail_position-5
+                        ]) {
+                            linear_extrude(height = base_thickness + 10, center = false)
+                                polygon([
+                                    [-(screwdriver_rail_cutout_width / 2), offset_y],
+                                    [ (screwdriver_rail_cutout_width / 2), offset_y],
+                                    [ (cutout_front_width / 2), rail_front_y],
+                                    [-(cutout_front_width / 2), rail_front_y]
+                                ]);
+                        }
                     }
                 }
             }

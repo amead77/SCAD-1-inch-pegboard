@@ -10,6 +10,8 @@ Everything about it is customisable. Maybe even for skadis, but I don't have any
 All the parts can be created from assembly.scad, by default it loads an overview
 By choosing which part to create, you can make any of the parts I've designed, in any size you want.
 
+Before printing a bunch of stuff, I recommend doing a small print first to check the tolerances. My 0.4mm nozzle created nice 'n' tight fitting pegs, my 0.6mm created loose fitting pegs. 
+
 ![overview](overview-assembly.png)
 
 A look at the back. The number of pegs is defined by the peg units.
