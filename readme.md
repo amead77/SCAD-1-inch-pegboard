@@ -12,6 +12,11 @@ By choosing which part to create, you can make any of the parts I've designed, i
 
 Before printing a bunch of stuff, I recommend doing a small print first to check the tolerances. My 0.4mm nozzle created nice 'n' tight fitting pegs, my 0.6mm created loose fitting pegs. 
 
+Anyway, if you like the design, you're welcome to buy me a coffee:
+
+<a href="https://buymeacoffee.com/amead77"><img src="bmc-button.png" alt="Buy Me a Coffee" width="50%" /></a>
+
+
 ![overview](overview-assembly.png)
 
 A look at the back. The number of pegs is defined by the peg units.
