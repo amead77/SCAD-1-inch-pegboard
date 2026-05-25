@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r61";
+version = "v0.1-2026/05/25r65";
 **/
 
 
@@ -62,8 +62,10 @@ screwdriver_hole_chamfer_width = 1;  // 0.1
 screwdriver_hole_chamfer_depth = 5;  // 0.1
 // how far the screwdriver holder is offset from the front edge of the peg panel, in mm
 sd_front_edge_offset = 5;  // 0.1
-sd_screwdriver_rail_cutout_width = 0; // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
-sd_screwdriver_rail_cutout_chamfer_angle = 20; // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
+// width of the cutout in the base for the screwdriver rail. set to 0 for no cutout. The width will be increased by a chamfer, as the measurement starts from the centre of the hole
+sd_screwdriver_rail_cutout_width = 0;  // 0.1 
+// angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
+sd_screwdriver_rail_cutout_chamfer_angle = 20;  // 0.1 
 
 /* [pot holder specific dimensions] */
 // the size of what you want to put in it, plus some clearance
