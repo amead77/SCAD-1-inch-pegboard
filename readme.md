@@ -12,6 +12,12 @@ By choosing which part to create, you can make any of the parts I've designed, i
 
 ![overview](overview-assembly.png)
 
+A look at the back. The number of pegs is defined by the peg units.
+The width and height of the back panel is defined by peg units and peg spacing. If you change to a 25mm peg spacing, it'll be smaller than my 25.4mm spaced ones.
+The thickness of the peg panel back is in MM.
+
+![overview-rear](overview-rear.png)
+
 A small double box.
 
 ![doublebox](box-double_small.png)
