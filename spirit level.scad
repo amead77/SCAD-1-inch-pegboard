@@ -7,7 +7,7 @@ A spirit level holder for moi pegboard
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r63";
+version = "v0.1-2026/05/25r71";
 **/
 
 include <hooks.scad>;
@@ -44,13 +44,13 @@ module basic_level_holder(
         // if side is not "none", add a block to the specified side.
         if (side != "none") {
             if ((side == "left") || (side == "both")) {
-                translate([0, clamp_thickness, clamp_thickness]) {
-                    cube([clamp_thickness, level_depth_y, level_height_z], center = false);
+                translate([-clamp_thickness, 0, 0]) {
+                    cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness], center = false);
                 }
             }
             if ((side == "right") || (side == "both")) {
-                translate([level_length - clamp_thickness, clamp_thickness, clamp_thickness]) {
-                    cube([clamp_thickness, level_depth_y, level_height_z], center = false);
+                translate([level_length, 0, 0]) {
+                    cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness], center = false);
                 }
             }
         }
