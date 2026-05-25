@@ -32,6 +32,10 @@ A small screwdriver rail
 
 ![screwd](screwdriver-small.png)
 
+The same rail, but with a cutout for inserting stuff from the front
+
+![screwdc](screwdriver-chop.png)
+
 Some hooks for hooky stuff
 
 ![hooks](hooks.png)
