@@ -4,14 +4,16 @@ Use the customiser in openscad to choose which part, then adjust to suit.
 If you don't want 1" spacing you can modify the "peg panel.scad". Or override
 the defaults in peg panel.
 
-
+when designing your own parts, in the assembly view note that the axis x,y is reversed
+for the part you are making, because the wall pegs are on the 'front', so 
+you're making on the back.
 */
 
 
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/17r08";
+version = "v0.1-2026/05/25r07";
 **/
 
 
@@ -19,6 +21,7 @@ version = "v0.1-2026/05/17r08";
 include <screwdriver holder.scad>;
 include <pot holder.scad>;
 include <hooks.scad>;
+include <spirit level.scad>;
 
 /* [Choose part] */
 // assembly view all parts are fixed, changing 'which' gives you customising options
@@ -142,6 +145,20 @@ module assembly() {
             hook_shape = "cylindrical"
         );
     }
+    translate([300, 0, 0]) {
+        spirit_level_holder(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            offset_y = 1, // how far the holder is offset from the peg panel, in mm
+            side = "right"
+        );
+    }
+
+
+
 }
 
 if (which == "screwdriver_holder") {
