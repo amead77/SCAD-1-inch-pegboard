@@ -3,11 +3,11 @@
 
 I designed this because I have 1" spaced pegboard, but wanted to be able to also do other peg spacing.
 
-### It can be easily adapted to metric 25mm, or any other size, so long as the holes are circular and in a square grid.
+### It can be easily adapted to metric 25mm, or any other size, right within the customiser, so long as the holes are circular and in a square grid.
 
 Everything about it is customisable. Maybe even for skadis, but I don't have any to test against. It would require offsetting each row of pegs though, because skadis offsets the rows from each other.
 
-All the parts can be created from assembly.scad, by default it loads an overview
+All the parts can be created from assembly.scad, by default it loads an overview.
 By choosing which part to create, you can make any of the parts I've designed, in any size you want.
 
 Before printing a bunch of stuff, I recommend doing a small print first to check the tolerances. My 0.4mm nozzle created nice 'n' tight fitting pegs, my 0.6mm created loose fitting pegs. 

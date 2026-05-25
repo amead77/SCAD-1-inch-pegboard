@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r54";
+version = "v0.1-2026/05/25r61";
 **/
 
 
@@ -228,6 +228,60 @@ module assembly() {
 
         );
     }
+    translate([0, 150, 0]) {
+        spirit_level_holder(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                3 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            offset_y = 1, // how far the holder is offset from the peg panel, in mm
+            side = "both",
+            level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
+            level_depth_y = 75, //how deep the level is in the Y axis.
+            level_height_z = 45, //how high the level is in the Z axis. full height not required.
+            clamp_thickness = 3, //thickness of the walls
+            num_levels = 1, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
+            end_cap = 1 //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
+
+        );
+    }
+    translate([100, 150, 0]) {
+        screwdriver_holder_assembly(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ],
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            
+            screwdriver_dia = 10, 
+            screwdriver_rail_cutout_width = 3, // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
+            screwdriver_rail_cutout_chamfer_angle = 10, // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
+
+            base_thickness = 20, 
+            offset_x = 10, 
+            offset_y = 25,
+            front_edge_offset = 5,
+            screwdriver_rail_position = 0,
+            screwdriver_hole_spacing = 25,
+            screwdriver_hole_chamfer_width = 1, // chamfer for the screwdriver holes
+            screwdriver_hole_chamfer_depth = 5 // depth of the chamfer for the screwdriver holes
+        );
+    }
 
 
 
@@ -315,7 +369,7 @@ if (which == "screwdriver_holder") {
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
-           offset_x = sl_offset_x,
+            offset_x = sl_offset_x,
             offset_y = sl_offset_y, 
             offset_z = sl_offset_z,
             side = sl_side,
