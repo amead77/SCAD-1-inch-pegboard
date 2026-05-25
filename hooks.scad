@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/17r45";
+version = "v0.1-2026/05/25r00";
 **/
 
 include <peg panel.scad>;
@@ -53,6 +53,13 @@ module hook_rail(
             4, // thickness of the panel, in mm
             2 // in PEG SPACE UNITS, not mm
         ], 
+        peg_spacing = 25.4, //distance between peg centres
+        peg_diameter = 4.0, //diameter of the peg pin
+        hole_diameter = 6.0, //diameter of the pin part that hooks in the pegboard
+        hole_depth = 3.5, //depth of the peg pin that fits in the pegboard
+        hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
+        peg_offset_x = 12.7, //offset of the first peg pin
+        peg_offset_z = 12.7, //offset of the first peg pin        
         hook_dia = 6.0, // diameter of the hook pin
         hook_length = 20, // length of the hook pin
         spacing = 30.0, // spacing between hooks, in mm
@@ -84,6 +91,16 @@ the number of holes is determined by the panel size and the spacing between hole
                 }
             }
         }
-        peg_panel(panel_size=panel_size);
+        peg_panel(
+            panel_size=panel_size,
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z //offset of the first peg pin             
+
+        );
     }
 

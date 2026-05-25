@@ -1,3 +1,6 @@
 *
 !*.scad
 !*.gitignore
+!*.png
+!*.jpg
+!*.md

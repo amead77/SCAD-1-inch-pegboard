@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/17r00";
+version = "v0.1-2026/05/25r00";
 **/
 
 include <peg panel.scad>;
@@ -22,6 +22,13 @@ module screwdriver_holder_assembly(
             4, // thickness of the panel, in mm
             2 // in PEG SPACE UNITS, not mm
         ], 
+        peg_spacing = 25.4, //distance between peg centres
+        peg_diameter = 4.0, //diameter of the peg pin
+        hole_diameter = 6.0, //diameter of the pin part that hooks in the pegboard
+        hole_depth = 3.5, //depth of the peg pin that fits in the pegboard
+        hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
+        peg_offset_x = 12.7, //offset of the first peg pin
+        peg_offset_z = 12.7, //offset of the first peg pin          
         screwdriver_dia = 10, //diameter of the screwdriver holder holes.
         screwdriver_hole_spacing = 25.4, //spacing between screwdriver holes
         screwdriver_hole_chamfer_width = 1, // chamfer for the screwdriver holes
@@ -69,7 +76,16 @@ the number of holes is determined by the panel size and the spacing between hole
                     }
                 }
             }
-            peg_panel(panel_size=panel_size);
+            peg_panel(
+                panel_size = panel_size,
+                peg_spacing = peg_spacing,
+                peg_diameter = peg_diameter,
+                hole_diameter = hole_diameter,
+                hole_depth = hole_depth,
+                hole_lip = hole_lip,
+                peg_offset_x = peg_offset_x,
+                peg_offset_z = peg_offset_z
+            );
         }
 
 }

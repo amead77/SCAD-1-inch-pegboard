@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/17r00";
+version = "v0.1-2026/05/25r00";
 **/
 
 
@@ -37,6 +37,14 @@ module pot_holder(
             4, // in MM, thickness of the panel
             2 // in PEG SPACE UNITS, not mm
         ],
+        peg_spacing = 25.4, //distance between peg centres
+        peg_diameter = 4.0, //diameter of the peg pin
+        hole_diameter = 6.0, //diameter of the pin part that hooks in the pegboard
+        hole_depth = 3.5, //depth of the peg pin that fits in the pegboard
+        hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
+        peg_offset_x = 12.7, //offset of the first peg pin
+        peg_offset_z = 12.7, //offset of the first peg pin 
+
         outer_dia = 50, //outer diameter of the pot holder, including the lip
         inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
         height = 10, // height of the pot holder
@@ -93,6 +101,15 @@ module pot_holder_assembly(
             4, // in MM, thickness of the panel
             2 // in PEG SPACE UNITS, not mm
         ],
+
+        peg_spacing = 25.4, //distance between peg centres
+        peg_diameter = 4.0, //diameter of the peg pin
+        hole_diameter = 6.0, //diameter of the pin part that hooks in the pegboard
+        hole_depth = 3.5, //depth of the peg pin that fits in the pegboard
+        hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
+        peg_offset_x = 12.7, //offset of the first peg pin
+        peg_offset_z = 12.7, //offset of the first peg pin 
+
         outer_dia = 50, //outer diameter of the pot holder, including the lip
         inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
         height = 10, // height of the pot holder
