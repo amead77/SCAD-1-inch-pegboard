@@ -8,20 +8,24 @@ creates straight or angled side supports for anything that can be mounted on the
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r86";
+version = "v0.1-2026/05/25r92";
 **/
 
 include <peg panel.scad>;
 $fn = 64;
 
 // Extrudes a 2D polygon profile (given as a list of [x,y] points, CCW from above)
-// from z=z0 to z=z1.  y_shift tilts the top face: each top point gains y_shift in Y.
-module _support_extrude(pts2d, z0, z1, y_shift = 0) {
+// from z=z0 to z=z1. Points on the peg panel face stay at y=0 while the rest
+// expand or contract in +Y at the top.
+module _support_extrude(pts2d, z0, z1, y_delta = 0) {
     n = len(pts2d);
+    profile_depth = max([for (p = pts2d) p[1]]);
+    top_depth = max(0, profile_depth + y_delta);
+    y_scale = profile_depth > 0 ? top_depth / profile_depth : 1;
     polyhedron(
         points = concat(
             [for (p = pts2d) [p[0], p[1],            z0]],
-            [for (p = pts2d) [p[0], p[1] + y_shift,  z1]]
+            [for (p = pts2d) [p[0], p[1] * y_scale, z1]]
         ),
         faces = concat(
             [[for (i = [n-1:-1:0]) i]],                               // bottom face (normal -z)
@@ -56,52 +60,47 @@ module side_support(
     support_base = true, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
     support_angle = 0 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
 ) {
+    panel_x = (max(1, panel_size[0]) - 1) * peg_spacing + 2 * peg_offset_x;
+    left_support_x = support_offset_left_x;
+    right_support_x = panel_x - support_offset_right_x - support_width_x;
+
     peg_panel(panel_size, peg_spacing, peg_diameter, hole_diameter, hole_depth, hole_lip, peg_offset_x, peg_offset_z);
 
-    // Y shift at the top face due to support_angle (negative = lean forward at top = +y)
-    y_shift = support_height_z * tan(support_angle);
+    // Negative angles lean forward from the pegboard, which is +Y in this model.
+    y_delta = -support_height_z * tan(support_angle);
 
     // ── 2D profiles (CCW when viewed from above) ──────────────────────────────
-    // Left L: leg on the left side (x = support_offset_x)
+    // Left L: vertical leg at the left edge, tied back to the peg panel at y=0.
     pts_left = [
-        [support_offset_x,                     0                 ],  // back-left
-        [support_offset_x + support_width_x,   0                 ],  // back-right
-        [support_offset_x + support_width_x,   support_thickness ],  // front-right of arm
-        [support_offset_x + support_thickness, support_thickness ],  // inner corner
-        [support_offset_x + support_thickness, support_distance_y],  // inner-front of leg
-        [support_offset_x,                     support_distance_y],  // outer-front of leg
+        [left_support_x,                     0                 ],
+        [left_support_x + support_width_x,   0                 ],
+        [left_support_x + support_width_x,   support_thickness ],
+        [left_support_x + support_thickness, support_thickness ],
+        [left_support_x + support_thickness, support_distance_y],
+        [left_support_x,                     support_distance_y],
     ];
-    // Right L: leg on the right side (x = support_offset_x + support_width_x)
+    // Right L: mirrored version using the independent right-side offset.
     pts_right = [
-        [support_offset_x,                                       0                 ],  // back-left
-        [support_offset_x + support_width_x,                     0                 ],  // back-right
-        [support_offset_x + support_width_x,                     support_distance_y],  // outer-front of leg
-        [support_offset_x + support_width_x - support_thickness, support_distance_y],  // inner-front of leg
-        [support_offset_x + support_width_x - support_thickness, support_thickness ],  // inner corner
-        [support_offset_x,                                       support_thickness ],  // front-left of arm
-    ];
-    // Both (U-shape): legs on both sides
-    pts_both = [
-        [support_offset_x,                                       0                 ],  // back-left
-        [support_offset_x + support_width_x,                     0                 ],  // back-right
-        [support_offset_x + support_width_x,                     support_distance_y],  // outer-front right
-        [support_offset_x + support_width_x - support_thickness, support_distance_y],  // inner-front right
-        [support_offset_x + support_width_x - support_thickness, support_thickness ],  // inner corner right
-        [support_offset_x + support_thickness,                   support_thickness ],  // inner corner left
-        [support_offset_x + support_thickness,                   support_distance_y],  // inner-front left
-        [support_offset_x,                                       support_distance_y],  // outer-front left
+        [right_support_x,                                       0                 ],
+        [right_support_x + support_width_x,                     0                 ],
+        [right_support_x + support_width_x,                     support_distance_y],
+        [right_support_x + support_width_x - support_thickness, support_distance_y],
+        [right_support_x + support_width_x - support_thickness, support_thickness ],
+        [right_support_x,                                       support_thickness ],
     ];
 
-    pts = support_side == "right" ? pts_right :
-          support_side == "both"  ? pts_both  :
-          pts_left;
+    if (support_side == "left" || support_side == "both") {
+        _support_extrude(pts_left, support_offset_z, support_offset_z + support_height_z, y_delta);
+        if (support_base && support_offset_z > 0) {
+            _support_extrude(pts_left, 0, support_offset_z, 0);
+        }
+    }
 
-    // Main body: angled extrusion from z=support_offset_z upward
-    _support_extrude(pts, support_offset_z, support_offset_z + support_height_z, y_shift);
-
-    // Base: straight (un-angled) extrusion from z=0 to z=support_offset_z
-    if (support_base && support_offset_z > 0) {
-        _support_extrude(pts, 0, support_offset_z, 0);
+    if (support_side == "right" || support_side == "both") {
+        _support_extrude(pts_right, support_offset_z, support_offset_z + support_height_z, y_delta);
+        if (support_base && support_offset_z > 0) {
+            _support_extrude(pts_right, 0, support_offset_z, 0);
+        }
     }
 
 }
