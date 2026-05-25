@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r07";
+version = "v0.1-2026/05/25r14";
 **/
 
 
@@ -153,7 +153,14 @@ module assembly() {
                 2 // in PEG SPACE UNITS, not mm
             ], 
             offset_y = 1, // how far the holder is offset from the peg panel, in mm
-            side = "right"
+            side = "right",
+            level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
+            level_depth_y = 22, //how deep the level is in the Y axis.
+            level_height_z = 35, //how high the level is in the Z axis. full height not required.
+            clamp_thickness = 5, //thickness of the walls
+            num_levels = 2, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
+            end_cap = 1 //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
+
         );
     }
 

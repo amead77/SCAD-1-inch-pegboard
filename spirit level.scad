@@ -7,7 +7,7 @@ A spirit level holder for moi pegboard
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r24";
+version = "v0.1-2026/05/25r31";
 **/
 
 include <hooks.scad>;
@@ -88,6 +88,21 @@ module spirit_level_holder(
             }
         }
 
+        for (i = [0:num_levels - 1]) {
+            //create the level holders, spaced evenly along the Y axis
+            translate([0, offset_y + i * (level_depth_y + clamp_thickness), 0]) {
+                basic_level_holder(
+                    level_length = level_length,
+                    level_depth_y = level_depth_y,
+                    level_height_z = level_height_z,
+                    clamp_thickness = clamp_thickness,
+                    side = (i < end_cap) ? side : "none" // add end caps to the specified number of levels
+                );
+            }
+        }
+        
+        
+/*        
         //create the level holder
         translate([0,offset_y, 0]) {
             basic_level_holder(
@@ -98,5 +113,7 @@ module spirit_level_holder(
                 side = side
             );
         }
+*/
     }
+
 }
