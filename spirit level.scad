@@ -1,13 +1,13 @@
 /*
 
-A spirit level holder for moi pegboard
+A spirit level holder for moi pegboard, also makes open top boxes
 
 */
 
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r71";
+version = "v0.1-2026/05/25r73";
 **/
 
 include <hooks.scad>;

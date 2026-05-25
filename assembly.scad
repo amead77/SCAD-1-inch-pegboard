@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r65";
+version = "v0.1-2026/05/25r81";
 **/
 
 
@@ -22,10 +22,11 @@ include <screwdriver holder.scad>;
 include <pot holder.scad>;
 include <hooks.scad>;
 include <spirit level.scad>;
+include <side supports.scad>;
 
 /* [Choose part] */
 // assembly view all parts are fixed, changing 'which' gives you customising options
-which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly", "hooks", "BOX_and_spirit_level_holder"]
+which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly", "hooks", "BOX_and_spirit_level_holder", "side_supports"]
 
 /* [panel sizing, for all] */
 //PEG UNITS,            MM,                PEG UNITS
@@ -127,6 +128,28 @@ sl_end_cap = 2;
 //reinforcement under the level holder, just a retangle. Set to 0 for no reinforcement, or a value > 0 for the size in mm. Thickness is based on offset_z, so no offset, no reinforcement. recommended to use same size as level length for easier printing
 sl_under_reinforce_size = 75;  // 0.1
 //
+
+/* [side supports specific dimensions] */
+//offset of the support from the side of the panel, in mm
+ss_support_offset_left_x = 0; //0.1
+ss_support_offset_right_x = 0; //0.1
+//offset of the support from the top of the panel, in mm
+ss_support_offset_z = 0; //0.1
+//width of the support in the x axis, in mm
+ss_support_width_x = 30; //0.1
+//height of the support in the z axis, in mm
+ss_support_height_z = 50; //0.1
+//thickness of the support, in mm
+ss_support_thickness = 5; //0.1
+//distance of the front inside edge of the support from the front edge of the peg panel, in mm
+ss_support_distance_y = 10; //0.1
+//whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
+ss_support_base = true; //[true, false]
+//angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
+ss_support_angle = 0; //0.1
+
+ss_support_side = "both"; //["left", "right", "both"]
+
 
 module assembly() {
 /* the assembly view parts are fixed size and posiotion */    
@@ -284,10 +307,36 @@ module assembly() {
             screwdriver_hole_chamfer_depth = 5 // depth of the chamfer for the screwdriver holes
         );
     }
+    translate([200, 150, 0]) {
+        side_support(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+
+            support_offset_x = 20, //offset of the support from the side of the panel, in mm
+            support_offset_z = 10, //offset of the support from the top of the panel, in mm
+            support_width_x = 20, //width of the support in the x axis, in mm
+            support_height_z = 20, //height of the support in the z axis, in mm
+            support_thickness = 5, //thickness of the support, in mm
+            support_distance_y = 5, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_base = true, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
+            support_angle = 0 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
+
+        );
+    }
 
 
 
-}
+} //end assembly view
 
 if (which == "screwdriver_holder") {
     render() {
@@ -382,6 +431,34 @@ if (which == "screwdriver_holder") {
             num_levels = sl_num_levels,
             end_cap = sl_end_cap,
             under_reinforce_size = sl_under_reinforce_size
+        );
+    }
+} else if (which == "side_supports") {
+    render() {
+        side_support(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+
+            support_offset_left_x = ss_support_offset_left_x, //offset of the support from the left side of the panel, in mm
+            support_offset_right_x = ss_support_offset_right_x, //offset of the support from the right side of the panel, in mm
+            support_offset_z = ss_support_offset_z, //offset of the support from the top of the panel, in mm
+            support_width_x = ss_support_width_x, //width of the support in the x axis, in mm
+            support_height_z = ss_support_height_z, //height of the support in the z axis, in mm
+            support_thickness = ss_support_thickness, //thickness of the support, in mm
+            support_distance_y = ss_support_distance_y, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_base = ss_support_base, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
+            support_angle = ss_support_angle, //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
+            support_side = ss_support_side
         );
     }
 }
