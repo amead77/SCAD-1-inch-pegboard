@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r85";
+version = "v0.1-2026/05/29r87";
 **/
 
 include <peg panel.scad>;
@@ -136,7 +136,8 @@ module side_support(
                 support_height_z = support_height_z, //height of the support in the z axis, in mm
                 support_distance_y_top = support_distance_y_top, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
                 support_distance_y_bottom = support_distance_y_bottom, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
-                support_thickness = support_thickness //thickness of the support, in mm
+                support_thickness = support_thickness, //thickness of the support, in mm
+                base_support = support_base //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
             );
         }
     }
@@ -149,7 +150,8 @@ module side_support(
                     support_height_z = support_height_z, //height of the support in the z axis, in mm
                     support_distance_y_top = support_distance_y_top, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
                     support_distance_y_bottom = support_distance_y_bottom, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
-                    support_thickness = support_thickness //thickness of the support, in mm
+                    support_thickness = support_thickness, //thickness of the support, in mm
+                    base_support = support_base //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
                 );
             };
         }

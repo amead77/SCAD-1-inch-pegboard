@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r26";
+version = "v0.1-2026/05/29r28";
 **/
 
 
@@ -142,13 +142,13 @@ ss_support_width_x = 25; //0.1
 ss_support_height_z = 50; //0.1
 //thickness of the support, in mm
 ss_support_thickness = 5; //0.1
-//distance of the front inside edge of the support from the front edge of the peg panel, in mm
+//how far the top inside edge of the angled part is offset from the back panel
 ss_support_distance_y_top = 15; //0.1
+//how far the bottom inside edge of the angled part is offset from the back panel
 ss_support_distance_y_bottom = 5; //0.1
 //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
 ss_support_base = true; //[true, false]
-//angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
-//ss_support_angle = 0; //0.1
+//put the support on the left, right, or both sides of the panel
 ss_support_side = "both"; //["left", "right", "both"]
 
 
@@ -465,9 +465,9 @@ if (which == "screwdriver_holder") {
             support_width_x = ss_support_width_x, //width of the support in the x axis, in mm
             support_height_z = ss_support_height_z, //height of the support in the z axis, in mm
             support_thickness = ss_support_thickness, //thickness of the support, in mm
-            support_distance_y = ss_support_distance_y, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_distance_y_bottom = ss_support_distance_y_bottom, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_distance_y_top = ss_support_distance_y_top, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
             support_base = ss_support_base, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
-            support_angle = ss_support_angle, //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
             support_side = ss_support_side
         );
     }
