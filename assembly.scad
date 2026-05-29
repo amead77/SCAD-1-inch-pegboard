@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r06";
+version = "v0.1-2026/05/29r25";
 **/
 
 
@@ -137,7 +137,7 @@ ss_support_offset_right_x = 0; //0.1
 //offset of the support from the top of the panel, in mm
 ss_support_offset_z = 0; //0.1
 //width of the support in the x axis, in mm
-ss_support_width_x = 30; //0.1
+ss_support_width_x = 35; //0.1
 //height of the support in the z axis, in mm
 ss_support_height_z = 50; //0.1
 //thickness of the support, in mm
@@ -149,9 +149,6 @@ ss_support_distance_y_bottom = 5; //0.1
 ss_support_base = true; //[true, false]
 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
 //ss_support_angle = 0; //0.1
-
-
-
 ss_support_side = "both"; //["left", "right", "both"]
 
 
@@ -330,13 +327,15 @@ module assembly() {
 
             support_offset_left_x = 0, //offset of the support from the left side of the panel, in mm
             support_offset_right_x = 0, //offset of the support from the right side of
-            support_offset_z = 10, //offset of the support from the top of the panel, in mm
-            support_width_x = 20, //width of the support in the x axis, in mm
+            support_offset_z = 0, //offset of the support from the top of the panel, in mm
+            support_width_x = 30, //width of the support in the x axis, in mm
             support_height_z = 20, //height of the support in the z axis, in mm
             support_thickness = 5, //thickness of the support, in mm
             support_distance_y_top = 15, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
             support_distance_y_bottom = 5, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
             support_base = true, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
+            support_side = "both" //["left", "right", "both"]
+
             //rather than using an angle, use an offset and calc the angle
             //support_angle = 0 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
 

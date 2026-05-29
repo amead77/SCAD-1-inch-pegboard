@@ -8,7 +8,7 @@ creates straight or angled side supports for anything that can be mounted on the
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r38";
+version = "v0.1-2026/05/29r84";
 **/
 
 include <peg panel.scad>;
@@ -54,32 +54,34 @@ module makewing(
         [high_right + a_offset, high_init],
         [high_left, high_init]
     ];
-
-    rotate([0, 90, 0]) {
-    //make the side
-    translate([0, 0, 0]) {
-        linear_extrude(height = thickness) {
-            polygon(points = o_points);
-        }
-    }
-    //make the wing
-    difference() {
-        translate([0, 0, thickness]) {
-            linear_extrude(height = support_width_x) {
-                polygon(points = o_points);
+    //rotating breaks my brain
+    translate(base_support ? [0, 0, thickness] : [0, 0, 0]) {
+        rotate([90, 0, 90]) {
+            //make the side
+            translate([0, 0, 0]) {
+                linear_extrude(height = thickness) {
+                    polygon(points = o_points);
+                }
+            }
+            //make the wing
+            difference() {
+                translate([0, 0, thickness]) {
+                    linear_extrude(height = support_width_x) {
+                        polygon(points = o_points);
+                    }
+                }
+                translate([0, 0, thickness]) {
+                    linear_extrude(height = support_width_x) {
+                        polygon(points = v_points);
+                    }
+                }
             }
         }
-        translate([0, 0, thickness]) {
-            linear_extrude(height = support_width_x) {
-                polygon(points = v_points);
-            }
-        }
-    }
     }
     //make the base
     if (base_support) {
         translate([0, 0, 0]) {
-//            cube([support_thickness, support_distance_y_top + a_offset, support_width_x], center = false);
+            cube([support_width_x+thickness, thickness+a_offset, thickness] , center = false);
         }
     }
 
@@ -101,9 +103,9 @@ module side_support(
     peg_offset_z = 12.7, //offset of the first peg pin          
     
     support_side = "left", //"left", "right", or "both" - which side(s) to put the support on
-    support_offset_left_x = 20, //offset of the support from the side of the panel, in mm
-    support_offset_right_x = 20, //offset of the support from the side of the panel, in mm
-    support_offset_z = 10, //offset of the support from the top of the panel, in mm
+    support_offset_left_x = 0, //offset of the support from the side of the panel, in mm
+    support_offset_right_x = 0, //offset of the support from the side of the panel, in mm
+    support_offset_z = 0, //offset of the support from the top of the panel, in mm
     support_width_x = 20, //width of the support in the x axis, in mm
     support_height_z = 20, //height of the support in the z axis, in mm
     support_thickness = 5, //thickness of the support, in mm
@@ -121,67 +123,31 @@ module side_support(
     peg_panel(panel_size, peg_spacing, peg_diameter, hole_diameter, hole_depth, hole_lip, peg_offset_x, peg_offset_z);
 
 
-    makewing(
-        support_height_z = support_height_z, //height of the support in the z axis, in mm
-        support_distance_y_top = support_distance_y_top, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
-        support_distance_y_bottom = support_distance_y_bottom, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
-        support_thickness = support_thickness //thickness of the support, in mm
-    );
 
     if (support_side == "left" || support_side == "both") {
+        translate([left_support_x, 0, 0]) {
+            makewing(
+                support_width_x = support_width_x, //width of the support in the x axis, in mm
+                support_height_z = support_height_z, //height of the support in the z axis, in mm
+                support_distance_y_top = support_distance_y_top, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+                support_distance_y_bottom = support_distance_y_bottom, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
+                support_thickness = support_thickness //thickness of the support, in mm
+            );
+        }
     }
 
     if (support_side == "right" || support_side == "both") {
-    }
-
-}
-
-module test01() {
-    low_init = 0;
-    high_init = 30;
-    low_left = 0;
-    low_right = 10;
-    high_left = 0;
-    high_right = 90;
-    thickness = 5;
-    v_points = [
-        [low_left, low_init],
-        [low_right, low_init],
-        [high_right, high_init],
-        [high_left, high_init]
-    ];
-    
-    t_offset = angle(high_init, high_right);
-    echo (str("angle: ", t_offset));
-    a_offset = aoffset(t_offset, thickness);
-    echo (str("a_offset: ", a_offset));
-    o_points = [
-        [low_left, low_init],
-        [low_right + a_offset, low_init],
-        [high_right + a_offset, high_init],
-        [high_left, high_init]
-    ];
-
-    translate([0, 0, 0]) {
-        linear_extrude(height = 10) {
-            polygon(points = o_points);
+        mirror([1, 0, 0]) {
+            translate([(-panel_x)+support_offset_right_x, 0, 0]) {
+                makewing(
+                    support_width_x = support_width_x, //width of the support in the x axis, in mm
+                    support_height_z = support_height_z, //height of the support in the z axis, in mm
+                    support_distance_y_top = support_distance_y_top, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+                    support_distance_y_bottom = support_distance_y_bottom, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
+                    support_thickness = support_thickness //thickness of the support, in mm
+                );
+            };
         }
     }
-    
-    translate([0, 0, 10]) {
-        linear_extrude(height = 10) {
-            polygon(points = v_points);
-        }
-    }
-/*        ,
-        faces = concat(
-            [[for (i = [3:-1:0]) i]],                               // bottom face (normal -z)
-            [[for (i = [0:3])    4 + i]],                           // top face    (normal +z)
-            [[0, 1, 5, 4]], // side faces
-            [[1, 2, 6, 5]],
-            [[2, 3, 7, 6]],
-            [[3, 0, 4, 7]]
-        )
-    );
-*/
+
 }
