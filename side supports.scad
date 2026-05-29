@@ -2,13 +2,18 @@
 
 creates straight or angled side supports for anything that can be mounted on the pegboard.
 
+I tried to get lazy and get AI to do this one. It failed, badly.
+If you're thinking of modifying this with AI, think again. AI cannot work in 3 dimensions.
+It repeadedly spewed out code that looked good, but didn't work, at all.
+AI can work very well to help you fix your mistakes, but not create models.
+Maybe next year.
 */
 
 
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r84";
+version = "v0.1-2026/05/29r85";
 **/
 
 include <peg panel.scad>;
