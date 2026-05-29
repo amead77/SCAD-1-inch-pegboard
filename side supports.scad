@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r90";
+version = "v0.1-2026/05/29r92";
 **/
 
 include <peg panel.scad>;
@@ -113,7 +113,7 @@ module side_support(
     support_side = "left", //"left", "right", or "both" - which side(s) to put the support on
     support_offset_left_x = 0, //offset of the support from the side of the panel, in mm
     support_offset_right_x = 0, //offset of the support from the side of the panel, in mm
-    support_offset_z = 0, //offset of the support from the top of the panel, in mm
+    support_offset_z = 0, //offset of the support from the bottom of the panel, in mm
     support_width_x = 20, //width of the support in the x axis, in mm
     support_height_z = 20, //height of the support in the z axis, in mm
     support_thickness = 5, //thickness of the support, in mm
@@ -133,7 +133,7 @@ module side_support(
 
 
     if (support_side == "right" || support_side == "both") {
-        translate([left_support_x, 0, 0]) {
+        translate([left_support_x, 0, support_offset_z]) {
             makewing(
                 support_width_x = support_width_x, //width of the support in the x axis, in mm
                 support_height_z = support_height_z, //height of the support in the z axis, in mm
@@ -147,7 +147,7 @@ module side_support(
 
     if (support_side == "left" || support_side == "both") {
         mirror([1, 0, 0]) {
-            translate([(-panel_x)+support_offset_right_x, 0, 0]) {
+            translate([(-panel_x)+support_offset_right_x, 0, support_offset_z]) {
                 makewing(
                     support_width_x = support_width_x, //width of the support in the x axis, in mm
                     support_height_z = support_height_z, //height of the support in the z axis, in mm
