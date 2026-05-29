@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r25";
+version = "v0.1-2026/05/29r26";
 **/
 
 
@@ -137,7 +137,7 @@ ss_support_offset_right_x = 0; //0.1
 //offset of the support from the top of the panel, in mm
 ss_support_offset_z = 0; //0.1
 //width of the support in the x axis, in mm
-ss_support_width_x = 35; //0.1
+ss_support_width_x = 25; //0.1
 //height of the support in the z axis, in mm
 ss_support_height_z = 50; //0.1
 //thickness of the support, in mm
