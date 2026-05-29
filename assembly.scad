@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r81";
+version = "v0.1-2026/05/29r06";
 **/
 
 
@@ -127,7 +127,8 @@ sl_num_levels = 2;
 sl_end_cap = 2;
 //reinforcement under the level holder, just a retangle. Set to 0 for no reinforcement, or a value > 0 for the size in mm. Thickness is based on offset_z, so no offset, no reinforcement. recommended to use same size as level length for easier printing
 sl_under_reinforce_size = 75;  // 0.1
-//
+// offset the reinforcement because adding side caps to one side only will cause offset reinforcement position
+sl_under_reinforce_offset_x = 0; // 0.1
 
 /* [side supports specific dimensions] */
 //offset of the support from the side of the panel, in mm
@@ -142,11 +143,14 @@ ss_support_height_z = 50; //0.1
 //thickness of the support, in mm
 ss_support_thickness = 5; //0.1
 //distance of the front inside edge of the support from the front edge of the peg panel, in mm
-ss_support_distance_y = 10; //0.1
+ss_support_distance_y_top = 15; //0.1
+ss_support_distance_y_bottom = 5; //0.1
 //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
 ss_support_base = true; //[true, false]
 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
-ss_support_angle = 0; //0.1
+//ss_support_angle = 0; //0.1
+
+
 
 ss_support_side = "both"; //["left", "right", "both"]
 
@@ -308,7 +312,8 @@ module assembly() {
         );
     }
     translate([200, 150, 0]) {
-        /*
+//        test01();
+        
         side_support(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -323,17 +328,20 @@ module assembly() {
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
 
-            support_offset_x = 20, //offset of the support from the side of the panel, in mm
+            support_offset_left_x = 0, //offset of the support from the left side of the panel, in mm
+            support_offset_right_x = 0, //offset of the support from the right side of
             support_offset_z = 10, //offset of the support from the top of the panel, in mm
             support_width_x = 20, //width of the support in the x axis, in mm
             support_height_z = 20, //height of the support in the z axis, in mm
             support_thickness = 5, //thickness of the support, in mm
-            support_distance_y = 5, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_distance_y_top = 15, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_distance_y_bottom = 5, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
             support_base = true, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
-            support_angle = 0 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
+            //rather than using an angle, use an offset and calc the angle
+            //support_angle = 0 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
 
         );
-        */
+        
     }
 
 
@@ -432,7 +440,8 @@ if (which == "screwdriver_holder") {
             clamp_thickness = sl_clamp_thickness,
             num_levels = sl_num_levels,
             end_cap = sl_end_cap,
-            under_reinforce_size = sl_under_reinforce_size
+            under_reinforce_size = sl_under_reinforce_size,
+            under_reinforce_offset_x = sl_under_reinforce_offset_x
         );
     }
 } else if (which == "side_supports") {
