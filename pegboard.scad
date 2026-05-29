@@ -40,6 +40,11 @@ module pegboard(
 
     peg_count_x = width_pegs;
     peg_count_z = height_pegs;
+    panel_undersize = max(0, panel_undersizing);
+    rear_feature_depth = max(
+        panel_reinforcement && panel_reinforcement_depth > 0 ? panel_reinforcement_depth : 0,
+        screw_holes && screw_hole_mount_depth > 0 ? screw_hole_mount_depth : 0
+    );
     screw_positions = [
         [screw_hole_offset, screw_hole_offset],
         [panel_x - screw_hole_offset, screw_hole_offset],
@@ -110,6 +115,20 @@ module pegboard(
                             );
                 }
             }
+        }
+
+        if (panel_undersize > 0) {
+            translate([-1, -panel_y - rear_feature_depth - 1, -1])
+                cube([panel_undersize + 1, panel_y + rear_feature_depth + 2, panel_z + 2], center = false);
+
+            translate([panel_x - panel_undersize, -panel_y - rear_feature_depth - 1, -1])
+                cube([panel_undersize + 1, panel_y + rear_feature_depth + 2, panel_z + 2], center = false);
+
+            translate([-1, -panel_y - rear_feature_depth - 1, -1])
+                cube([panel_x + 2, panel_y + rear_feature_depth + 2, panel_undersize + 1], center = false);
+
+            translate([-1, -panel_y - rear_feature_depth - 1, panel_z - panel_undersize])
+                cube([panel_x + 2, panel_y + rear_feature_depth + 2, panel_undersize + 1], center = false);
         }
     }
 

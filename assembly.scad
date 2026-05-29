@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r75";
+version = "v0.1-2026/05/30r03";
 **/
 
 
@@ -27,7 +27,7 @@ include <pegboard.scad>;
 
 /* [Choose part] */
 // assembly view all parts are fixed, changing 'which' gives you customising options
-which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly", "hooks", "BOX_and_spirit_level_holder", "side_supports", "pegboard"]
+which = "assembly"; // ["assembly", "screwdriver_holder", "pot_holder", "hooks", "BOX_and_spirit_level_holder", "side_supports", "pegboard"]
 
 /* [panel sizing, for all] */
 //PEG UNITS,            MM,                PEG UNITS
@@ -36,14 +36,20 @@ panel_size = [
     4, // thickness of the panel, in mm
     2 // in PEG SPACE UNITS, not mm
 ];
-
-peg_spacing = 25.4; //distance between peg centres, change this if you don't have 1" pegboard
-peg_diameter = 4.0; //diameter of the peg pin
-hole_diameter = 6.0; //diameter of the pin part that hooks in the pegboard
-hole_depth = 3.5; //depth of the peg pin that fits in the pegboard
-hole_lip = 1.5; // depth of the lip that catches inside the pegboard holes
-peg_offset_x = 12.7; //offset of the first peg pin
-peg_offset_z = 12.7; //offset of the first peg pin
+//distance between peg centres, change this if you don't have 1" pegboard
+peg_spacing = 25.4; 
+//diameter of the peg pin
+peg_diameter = 4.0; 
+//diameter of the pin part that hooks in the pegboard
+hole_diameter = 6.0; 
+//depth of the peg pin that fits in the pegboard
+hole_depth = 3.5; 
+// depth of the lip that catches inside the pegboard holes
+hole_lip = 1.5; 
+//offset of the first peg pin
+peg_offset_x = 12.7; 
+//offset of the first peg pin
+peg_offset_z = 12.7; 
 
 /* [screwdriver rail specific dimensions] */
 //diameter of the screwdriver holder holes.
@@ -157,17 +163,25 @@ ss_support_side = "both"; //["left", "right", "both"]
 //screw hole offset is how far in from the edge of the pegboard the screw holes
 pb_screw_hole_offset = 5; //0.1
 //whether to include holes for screws to mount the pegboard to the wall
-pb_screw_holes = true; 
+pb_screw_holes = true; //[true, false]
 //diameter of the screw holes. //3.7 for 3.5mm screws
-pb_screw_hole_diameter = 3.7; 
+pb_screw_hole_diameter = 3.7;  //0.1
 //depth of the screw holes, in mm, this is the standoff distance from the wall, ZERO means no standoff, just hole.
-pb_screw_hole_mount_depth = 3; 
+pb_screw_hole_mount_depth = 3;  //0.1
 //thickness of the wall part of the screw hole, in mm.
-pb_screw_hole_mount_wall_thickness = 2.5; 
+pb_screw_hole_mount_wall_thickness = 2.5; //0.1
 //diameter of the countersink for the screw head, in mm, 0 means none.
-pb_screw_hole_countersink_diameter = 10; 
+pb_screw_hole_countersink_diameter = 10; //0.1
 //depth of the countersink for the screw head, in mm, 0 means none.
-pb_screw_hole_countersink_depth = 1.2; 
+pb_screw_hole_countersink_depth = 1.2; //0.1
+//add a grid of lines on the back of the panel, half way between the peg holes
+pb_panel_reinforcement = true; //[true, false]
+//thickness (Z & X axis) of the reinforcement lines, in mm
+pb_panel_reinforcement_thickness = 2; //0.1
+//depth of the reinforcement lines, in mm (Y axis)
+pb_panel_reinforcement_depth = 1; //0.1
+//how much to undersize the panel outer dimensions by, in mm. the same amount is applied to all 4 sides. this is for allowing 2 panels to be placed together without interference.
+pb_panel_undersizing = 0.05; //0.1
 
 
 
@@ -608,7 +622,11 @@ if (which == "screwdriver_holder") {
             screw_hole_countersink_diameter = pb_screw_hole_countersink_diameter,
             screw_hole_countersink_depth = pb_screw_hole_countersink_depth,
             peg_offset_x = peg_offset_x,
-            peg_offset_z = peg_offset_z
+            peg_offset_z = peg_offset_z,
+            panel_reinforcement = pb_panel_reinforcement,
+            panel_reinforcement_thickness = pb_panel_reinforcement_thickness,
+            panel_reinforcement_depth = pb_panel_reinforcement_depth,
+            panel_undersizing = pb_panel_undersizing            
         );
     }
 }
