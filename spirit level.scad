@@ -7,7 +7,7 @@ A spirit level holder for moi pegboard, also makes open top boxes
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r73";
+version = "v0.1-2026/05/29r00";
 **/
 
 include <hooks.scad>;
@@ -81,7 +81,8 @@ module spirit_level_holder(
     clamp_thickness = 5, //thickness of the walls
     num_levels = 2, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
     end_cap = 2, //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
-    under_reinforce_size = 0 // if > 0, creates a reinforcement under the level holder, just a retangle that is reinforce width, but offset_z high
+    under_reinforce_size = 0, // if > 0, creates a reinforcement under the level holder, just a retangle that is reinforce width, but offset_z high
+    under_reinforce_offset_x = 0 // offset the reinforcement because adding side caps to one side only will cause offset reinforcement position
 ) {
 
     union() {
@@ -129,7 +130,7 @@ module spirit_level_holder(
         
         if (under_reinforce_size > 0 && offset_z > 0) {
             // add a reinforcement under the level holder, just a rectangle that is under_reinforce_size wide, but offset_z high
-            translate([offset_x + (level_length/2)-(under_reinforce_size/2), 0, 0]) {
+            translate([offset_x + (level_length/2)-(under_reinforce_size/2) + under_reinforce_offset_x, 0, 0]) {
                 cube([
                     under_reinforce_size, 
                     clamp_thickness+offset_y + (num_levels * (level_depth_y + clamp_thickness)),

@@ -308,6 +308,7 @@ module assembly() {
         );
     }
     translate([200, 150, 0]) {
+        /*
         side_support(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -332,6 +333,7 @@ module assembly() {
             support_angle = 0 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
 
         );
+        */
     }
 
 
