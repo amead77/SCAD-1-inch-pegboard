@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r31";
+version = "v0.1-2026/05/29r74";
 **/
 
 
@@ -27,7 +27,7 @@ include <pegboard.scad>;
 
 /* [Choose part] */
 // assembly view all parts are fixed, changing 'which' gives you customising options
-which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly", "hooks", "BOX_and_spirit_level_holder", "side_supports"]
+which = "assembly"; // ["screwdriver_holder", "pot_holder", "assembly", "hooks", "BOX_and_spirit_level_holder", "side_supports", "pegboard"]
 
 /* [panel sizing, for all] */
 //PEG UNITS,            MM,                PEG UNITS
@@ -152,6 +152,28 @@ ss_support_base = true; //[true, false]
 //put the support on the left, right, or both sides of the panel
 ss_support_side = "both"; //["left", "right", "both"]
 
+/* [Pegboard specific dimensions] */
+//default is 1" spaced holes
+//screw hole offset is how far in from the edge of the pegboard the screw holes
+pb_screw_hole_offset = 5; //0.1
+//whether to include holes for screws to mount the pegboard to the wall
+pb_screw_holes = true; 
+//diameter of the screw holes. //3.7 for 3.5mm screws
+pb_screw_hole_diameter = 3.7; 
+//depth of the screw holes, in mm, this is the standoff distance from the wall, ZERO means no standoff, just hole.
+pb_screw_hole_mount_depth = 3; 
+//thickness of the wall part of the screw hole, in mm.
+pb_screw_hole_mount_wall_thickness = 2.5; 
+//diameter of the countersink for the screw head, in mm, 0 means none.
+pb_screw_hole_countersink_diameter = 10; 
+//depth of the countersink for the screw head, in mm, 0 means none.
+pb_screw_hole_countersink_depth = 1.2; 
+
+
+
+//function to give pegboard units in mm, for positioning parts in the assembly view
+function pegboard_units_to_mm(units) = units * peg_spacing;
+
 
 module assembly() {
 /* the assembly view parts are fixed size and posiotion */    
@@ -183,7 +205,7 @@ module assembly() {
             screwdriver_hole_chamfer_depth = 5 // depth of the chamfer for the screwdriver holes
         );
     }
-    translate([100, 0, 0]) {
+    translate([pegboard_units_to_mm(4), 0, 0]) {
         pot_holder_assembly(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -208,7 +230,7 @@ module assembly() {
             number_of_pots = 1
         );
     }
-    translate([200, 0, 0]) {
+    translate([pegboard_units_to_mm(8), 0, 0]) {
         hook_rail(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -230,7 +252,7 @@ module assembly() {
             hook_shape = "cylindrical"
         );
     }
-    translate([300, 0, 0]) {
+    translate([pegboard_units_to_mm(0), 0, pegboard_units_to_mm(4)]) {
         spirit_level_holder(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -250,12 +272,62 @@ module assembly() {
             level_depth_y = 22, //how deep the level is in the Y axis.
             level_height_z = 35, //how high the level is in the Z axis. full height not required.
             clamp_thickness = 5, //thickness of the walls
-            num_levels = 3, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
+            num_levels = 2, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
             end_cap = 2 //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
 
         );
     }
-    translate([0, 150, 0]) {
+    translate([pegboard_units_to_mm(7), 0, pegboard_units_to_mm(4)]) {
+        spirit_level_holder(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            offset_y = 1, // how far the holder is offset from the peg panel, in mm
+            side = "left",
+            level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
+            level_depth_y = 22, //how deep the level is in the Y axis.
+            level_height_z = 35, //how high the level is in the Z axis. full height not required.
+            clamp_thickness = 5, //thickness of the walls
+            num_levels = 2, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
+            end_cap = 1 //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
+
+        );
+    }
+    translate([pegboard_units_to_mm(17), 0, pegboard_units_to_mm(4)]) {
+        spirit_level_holder(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            offset_y = 1, // how far the holder is offset from the peg panel, in mm
+            side = "left",
+            level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
+            level_depth_y = 22, //how deep the level is in the Y axis.
+            level_height_z = 35, //how high the level is in the Z axis. full height not required.
+            clamp_thickness = 5, //thickness of the walls
+            num_levels = 1, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
+            end_cap = 1 //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
+
+        );
+    }
+    translate([pegboard_units_to_mm(0), 0, pegboard_units_to_mm(7)]) {
         spirit_level_holder(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -280,7 +352,7 @@ module assembly() {
 
         );
     }
-    translate([100, 150, 0]) {
+    translate([pegboard_units_to_mm(7), 0, pegboard_units_to_mm(7)]) {
         screwdriver_holder_assembly(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -309,9 +381,7 @@ module assembly() {
             screwdriver_hole_chamfer_depth = 5 // depth of the chamfer for the screwdriver holes
         );
     }
-    translate([200, 150, 0]) {
-//        test01();
-        
+    translate([pegboard_units_to_mm(11), 0, pegboard_units_to_mm(7)]) {
         side_support(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -336,21 +406,72 @@ module assembly() {
             support_distance_y_bottom = 5, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
             support_base = true, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
             support_side = "both" //["left", "right", "both"]
-
-            //rather than using an angle, use an offset and calc the angle
-            //support_angle = 0 //angle of the support from vertical, in degrees. negative angles lean forward from the pegboard at the top
-
         );
-        
     }
-    translate([0, -10, 0]) {
-        pegboard(panel_size = [
-            10, // in PEG SPACE UNITS, not mm
-            3.2, // thickness of the panel, in mm
-            10 // in PEG SPACE UNITS, not mm
-            ],
-            screw_hole_offset = 5
+    translate([pegboard_units_to_mm(13), 0, pegboard_units_to_mm(0)]) {
+        side_support(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+
+            support_offset_left_x = 0, //offset of the support from the left side of the panel, in mm
+            support_offset_right_x = 0, //offset of the support from the right side of
+            support_offset_z = 0, //offset of the support from the top of the panel, in mm
+            support_width_x = 50, //width of the support in the x axis, in mm
+            support_height_z = 50, //height of the support in the z axis, in mm
+            support_thickness = 5, //thickness of the support, in mm
+            support_distance_y_top = 25, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_distance_y_bottom = 15, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
+            support_base = false, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
+            support_side = "right" //["left", "right", "both"]
         );
+    }
+    translate([pegboard_units_to_mm(17), 0, pegboard_units_to_mm(0)]) {
+        side_support(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                2 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+
+            support_offset_left_x = 0, //offset of the support from the left side of the panel, in mm
+            support_offset_right_x = 0, //offset of the support from the right side of
+            support_offset_z = 0, //offset of the support from the top of the panel, in mm
+            support_width_x = 50, //width of the support in the x axis, in mm
+            support_height_z = 50, //height of the support in the z axis, in mm
+            support_thickness = 5, //thickness of the support, in mm
+            support_distance_y_top = 25, //distance of the front inside edge of the support from the front edge of the peg panel, in mm
+            support_distance_y_bottom = 15, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
+            support_base = false, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
+            support_side = "left" //["left", "right", "both"]
+        );
+    }
+    color("red") {
+        translate([0, -10, 0]) {
+            pegboard(panel_size = [
+                20, // in PEG SPACE UNITS, not mm
+                3.2, // thickness of the panel, in mm
+                10 // in PEG SPACE UNITS, not mm
+                ],
+                screw_hole_offset = 5
+            );
+        }
     }
 
 } //end assembly view
@@ -454,11 +575,7 @@ if (which == "screwdriver_holder") {
 } else if (which == "side_supports") {
     render() {
         side_support(
-            panel_size = [
-                3, // in PEG SPACE UNITS, not mm
-                4, // thickness of the panel, in mm
-                2 // in PEG SPACE UNITS, not mm
-            ], 
+            panel_size = panel_size,
             peg_spacing = peg_spacing, //distance between peg centres
             peg_diameter = peg_diameter, //diameter of the peg pin
             hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
@@ -477,6 +594,21 @@ if (which == "screwdriver_holder") {
             support_distance_y_top = ss_support_distance_y_top, //distance of the back inside edge of the support from the back edge of the peg panel, in mm
             support_base = ss_support_base, //whether to include the base of the support that attaches to the peg panel. if false, only the vertical part of the support is included.
             support_side = ss_support_side
+        );
+    }
+} else if (which == "pegboard") {
+    render() {
+        pegboard(
+            panel_size = panel_size,
+            screw_hole_offset = pb_screw_hole_offset,
+            screw_holes = pb_screw_holes,
+            screw_hole_diameter = pb_screw_hole_diameter,
+            screw_hole_mount_depth = pb_screw_hole_mount_depth,
+            screw_hole_mount_wall_thickness = pb_screw_hole_mount_wall_thickness,
+            screw_hole_countersink_diameter = pb_screw_hole_countersink_diameter,
+            screw_hole_countersink_depth = pb_screw_hole_countersink_depth,
+            peg_offset_x = peg_offset_x,
+            peg_offset_z = peg_offset_z
         );
     }
 }

@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r89";
+version = "v0.1-2026/05/29r90";
 **/
 
 include <peg panel.scad>;
@@ -132,7 +132,7 @@ module side_support(
 
 
 
-    if (support_side == "left" || support_side == "both") {
+    if (support_side == "right" || support_side == "both") {
         translate([left_support_x, 0, 0]) {
             makewing(
                 support_width_x = support_width_x, //width of the support in the x axis, in mm
@@ -145,7 +145,7 @@ module side_support(
         }
     }
 
-    if (support_side == "right" || support_side == "both") {
+    if (support_side == "left" || support_side == "both") {
         mirror([1, 0, 0]) {
             translate([(-panel_x)+support_offset_right_x, 0, 0]) {
                 makewing(

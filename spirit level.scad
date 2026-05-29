@@ -7,7 +7,7 @@ A spirit level holder for moi pegboard, also makes open top boxes
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r00";
+version = "v0.1-2026/05/29r01";
 **/
 
 include <hooks.scad>;
@@ -43,12 +43,12 @@ module basic_level_holder(
         } //difference
         // if side is not "none", add a block to the specified side.
         if (side != "none") {
-            if ((side == "left") || (side == "both")) {
+            if ((side == "right") || (side == "both")) {
                 translate([-clamp_thickness, 0, 0]) {
                     cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness], center = false);
                 }
             }
-            if ((side == "right") || (side == "both")) {
+            if ((side == "left") || (side == "both")) {
                 translate([level_length, 0, 0]) {
                     cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness], center = false);
                 }

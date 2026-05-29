@@ -55,6 +55,12 @@ By choosing a side, endcaps, and levels, you can create multi holders, some with
 
 ![level2](images/spirit-level-2.png)
 
+Side support, this is for supporting stuff from the side, can be angled. Stuff like laptops could be supported this way. Can be supported either or both sides, with or without the base.
+
+![sidesup](images/side-support.png)
+
+![sidesip1](images/side-supports-both.png)
+
 
 Licence is CC-non commerical
 
