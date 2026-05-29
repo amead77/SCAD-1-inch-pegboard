@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r88";
+version = "v0.1-2026/05/29r89";
 **/
 
 include <peg panel.scad>;
@@ -28,6 +28,9 @@ function angle(x, y) =
 
 
 module makewing(
+/*
+makes the 'wing' part of the support, which gets mirrored for the other side.
+*/
     support_width_x = 20, //width of the support in the x axis, in mm
     support_height_z = 20, //height of the support in the z axis, in mm
     support_distance_y_top = 15, //distance of the front inside edge of the support from the front edge of the peg panel, in mm

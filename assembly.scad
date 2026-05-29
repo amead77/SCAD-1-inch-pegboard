@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r28";
+version = "v0.1-2026/05/29r31";
 **/
 
 
@@ -23,6 +23,7 @@ include <pot holder.scad>;
 include <hooks.scad>;
 include <spirit level.scad>;
 include <side supports.scad>;
+include <pegboard.scad>;
 
 /* [Choose part] */
 // assembly view all parts are fixed, changing 'which' gives you customising options
@@ -342,8 +343,15 @@ module assembly() {
         );
         
     }
-
-
+    translate([0, -10, 0]) {
+        pegboard(panel_size = [
+            10, // in PEG SPACE UNITS, not mm
+            3.2, // thickness of the panel, in mm
+            10 // in PEG SPACE UNITS, not mm
+            ],
+            screw_hole_offset = 5
+        );
+    }
 
 } //end assembly view
 
