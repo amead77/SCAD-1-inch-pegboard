@@ -24,7 +24,11 @@ module pegboard(
     screw_hole_countersink_diameter = 10, //diameter of the countersink for the screw head, in mm, 0 means none.
     screw_hole_countersink_depth = 1.2, //depth of the countersink for the screw head, in mm, 0 means none.
     peg_offset_x = 12.7, //offset of the first peg pin
-    peg_offset_z = 12.7 //offset of the first peg pin
+    peg_offset_z = 12.7, //offset of the first peg pin
+    panel_reinforcement = true, //add a grid of lines on the back of the panel, half way between the peg holes
+    panel_reinforcement_thickness = 2, //thickness (Z & X axis) of the reinforcement lines, in mm
+    panel_reinforcement_depth = 1, //depth of the reinforcement lines, in mm (Y axis)
+    panel_undersizing = 0.05 //how much to undersize the panel outer dimensions by, in mm. the same amount is applied to all 4 sides. this is for allowing 2 panels to be placed together without interference.
 ) {
     width_pegs = max(1, panel_size[0]);
     panel_y = panel_size[1];
@@ -48,6 +52,23 @@ module pegboard(
             // Front face is y=0. Panel depth extends toward -y.
             translate([0, -panel_y, 0])
                 cube([panel_x, panel_y, panel_z], center = false);
+
+            if (panel_reinforcement && panel_reinforcement_thickness > 0 && panel_reinforcement_depth > 0) {
+                // Reinforcement ribs sit halfway between peg holes on the back face.
+                for (ix = [0:peg_count_x - 2]) {
+                    rib_x = peg_offset_x + (ix + 0.5) * peg_spacing - panel_reinforcement_thickness / 2;
+
+                    translate([rib_x, -panel_y - panel_reinforcement_depth, 0])
+                        cube([panel_reinforcement_thickness, panel_reinforcement_depth, panel_z], center = false);
+                }
+
+                for (iz = [0:peg_count_z - 2]) {
+                    rib_z = peg_offset_z + (iz + 0.5) * peg_spacing - panel_reinforcement_thickness / 2;
+
+                    translate([0, -panel_y - panel_reinforcement_depth, rib_z])
+                        cube([panel_x, panel_reinforcement_depth, panel_reinforcement_thickness], center = false);
+                }
+            }
 
             if (screw_holes && screw_hole_mount_depth > 0) {
                 for (position = screw_positions) {
