@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r87";
+version = "v0.1-2026/05/29r88";
 **/
 
 include <peg panel.scad>;
@@ -86,7 +86,7 @@ module makewing(
     //make the base
     if (base_support) {
         translate([0, 0, 0]) {
-            cube([support_width_x+thickness, thickness+a_offset, thickness] , center = false);
+            cube([support_width_x+thickness, support_distance_y_bottom+a_offset, thickness] , center = false);
         }
     }
 
