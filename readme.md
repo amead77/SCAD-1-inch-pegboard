@@ -10,7 +10,14 @@ Everything about it is customisable. Maybe even for skadis, but I don't have any
 All the parts can be created from assembly.scad, by default it loads an overview.
 By choosing which part to create, you can make any of the parts I've designed, in any size you want.
 
-Before printing a bunch of stuff, I recommend doing a small print first to check the tolerances. My 0.4mm nozzle created nice 'n' tight fitting pegs, my 0.6mm created loose fitting pegs. 
+Before printing a bunch of stuff, I recommend doing a small print first to check the tolerances. My 0.4mm nozzle created nice 'n' tight fitting pegs, my 0.6mm created loose fitting pegs.
+
+Print settings for supports I used were:
+
+- Do not remove small overhangs.
+- Tree supports
+
+Very little special setup, just make sure the pegs are tree-supported. Normal supports not recommended.
 
 
 Anyway, if you like the design, you're welcome to buy me a coffee:
