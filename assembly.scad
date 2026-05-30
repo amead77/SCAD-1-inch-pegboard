@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r03";
+version = "v0.1-2026/05/30r04";
 **/
 
 
@@ -136,6 +136,8 @@ sl_end_cap = 2;
 sl_under_reinforce_size = 75;  // 0.1
 // offset the reinforcement because adding side caps to one side only will cause offset reinforcement position
 sl_under_reinforce_offset_x = 0; // 0.1
+// if > 0, (in mm) create a stepped level holder, where each level from the front is lower than the one behind it
+sl_step_level = 0; // 0.1
 
 /* [side supports specific dimensions] */
 //offset of the support from the side of the panel, in mm
@@ -583,7 +585,8 @@ if (which == "screwdriver_holder") {
             num_levels = sl_num_levels,
             end_cap = sl_end_cap,
             under_reinforce_size = sl_under_reinforce_size,
-            under_reinforce_offset_x = sl_under_reinforce_offset_x
+            under_reinforce_offset_x = sl_under_reinforce_offset_x,
+            step_level = sl_step_level
         );
     }
 } else if (which == "side_supports") {

@@ -7,7 +7,7 @@ A spirit level holder for moi pegboard, also makes open top boxes
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/29r01";
+version = "v0.1-2026/05/30r07";
 **/
 
 include <hooks.scad>;
@@ -19,7 +19,8 @@ module basic_level_holder(
     level_depth_y = 22, //how deep the level is in the Y axis.
     level_height_z = 35, //how high the level is in the Z axis. full height not required.
     clamp_thickness = 5, //thickness of the walls that hold the spirit level in place
-    side = "none" //"left", "right", "both", or "none" - which side to put a block on the prevent level from sliding out.
+    side = "none", //"left", "right", "both", or "none" - which side to put a block on the prevent level from sliding out.
+    step_level = 0 // if > 0, (in mm) create a stepped level holder, where each level nearer the peg panel is higher than the one in front of it
 ) {
     union() {
         difference() {
@@ -27,11 +28,11 @@ module basic_level_holder(
             cube([
                 level_length, 
                 clamp_thickness+level_depth_y+clamp_thickness, 
-                clamp_thickness+level_height_z
+                clamp_thickness+level_height_z+step_level
                 ], center = false
             );
             //now cut out the inner space for the level
-            translate([-0.001, clamp_thickness, clamp_thickness]) {
+            translate([-0.001, clamp_thickness, clamp_thickness+step_level]) {
                 cube([
                     level_length+0.002, 
                     level_depth_y, 
@@ -45,12 +46,12 @@ module basic_level_holder(
         if (side != "none") {
             if ((side == "right") || (side == "both")) {
                 translate([-clamp_thickness, 0, 0]) {
-                    cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness], center = false);
+                    cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness+step_level], center = false);
                 }
             }
             if ((side == "left") || (side == "both")) {
                 translate([level_length, 0, 0]) {
-                    cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness], center = false);
+                    cube([clamp_thickness, level_depth_y+(2 * clamp_thickness), level_height_z+clamp_thickness+step_level], center = false);
                 }
             }
         }
@@ -82,7 +83,8 @@ module spirit_level_holder(
     num_levels = 2, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
     end_cap = 2, //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
     under_reinforce_size = 0, // if > 0, creates a reinforcement under the level holder, just a retangle that is reinforce width, but offset_z high
-    under_reinforce_offset_x = 0 // offset the reinforcement because adding side caps to one side only will cause offset reinforcement position
+    under_reinforce_offset_x = 0, // offset the reinforcement because adding side caps to one side only will cause offset reinforcement position
+    step_level = 0 // if > 0, (in mm) create a stepped level holder, where each level nearer the peg panel is higher than the one in front of it
 ) {
 
     union() {
@@ -107,7 +109,7 @@ module spirit_level_holder(
                 cube([
                     panel_size[0] * 25.4, // width of the panel in mm
                     offset_y, // depth of the offset
-                    level_height_z+clamp_thickness // height of the panel in mm
+                    level_height_z+clamp_thickness+(step_level * (num_levels - 1)) // height of the panel in mm
                 ], center = false);
             }
 
@@ -122,6 +124,7 @@ module spirit_level_holder(
                     level_depth_y = level_depth_y,
                     level_height_z = level_height_z,
                     clamp_thickness = clamp_thickness,
+                    step_level = step_level * (num_levels - 1 - i),
                     //side = (i < end_cap) ? side : "none" // add end caps to the specified number of levels
                     side = ((i >= (end_cap-1)-(num_levels-1)) && (i > (num_levels - end_cap - 1))) ? side : "none" // add end caps to the specified number of levels
                 );
