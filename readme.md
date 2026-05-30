@@ -69,6 +69,10 @@ How about a custon pegboard? As many 'oles as you like.
 
 ![pegboard](images/pegboard.png)
 
+Want a reinforced back to it? Sure!
+
+![pegboard2](images/pegboard-back.png)
+
 
 Licence is CC-non commerical
 
