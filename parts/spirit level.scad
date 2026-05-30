@@ -7,7 +7,7 @@ A spirit level holder for moi pegboard, also makes open top boxes
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r13";
+version = "v0.1-2026/05/30r15";
 **/
 
 include <peg panel.scad>;
@@ -74,6 +74,10 @@ module spirit_level_holder(
     peg_offset_x = 12.7, //offset of the first peg pin
     peg_offset_z = 12.7, //offset of the first peg pin
     panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
+    bent_peg_radius = 3, // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
+    bent_peg_angle = 70, // angle of the bend for bent hook pegs
+    bent_peg_length_straight1 = hole_depth, // length of the straight part of the bent hook peg before the bend
+    bent_peg_length_straight2 = 4, // length of the straight part of the hook that curves up
     offset_x = 0, //how far across the holder is from the edge of the panel, in mm. if not specified, it will be centered.
     offset_y = 2, // how far the holder is offset from the peg panel, in mm
     offset_z = 0, // how high the holder is offset from the peg panel, in mm
@@ -101,7 +105,11 @@ module spirit_level_holder(
             hole_lip = hole_lip,
             peg_offset_x = peg_offset_x,
             peg_offset_z = peg_offset_z,
-            panel_type = panel_type
+            panel_type = panel_type,
+            bent_peg_radius = bent_peg_radius,
+            bent_peg_angle = bent_peg_angle,
+            bent_peg_length_straight1 = bent_peg_length_straight1,
+            bent_peg_length_straight2 = bent_peg_length_straight2
         );
         if (offset_x != 0) {
             //use the specified offset, but make sure it's not too big or small

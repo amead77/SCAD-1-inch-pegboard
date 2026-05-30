@@ -42,6 +42,16 @@ The thickness of the peg panel back is in MM.
 
 ![overview-rear](images/overview-rear.png)
 
+You can use either my 'standard' pegs, or 'hooked' pegs (untested)
+
+Hooked/Bent pegs (only the top one is curved)
+
+![peg1](images/bent_pegs.png)
+
+Standard pegs
+
+![peg2](images/standard_pegs.png)
+
 A small double box.
 
 ![doublebox](images/box-double_small.png)

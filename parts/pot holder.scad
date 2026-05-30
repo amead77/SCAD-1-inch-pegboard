@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r04";
+version = "v0.1-2026/05/30r08";
 **/
 
 
@@ -46,6 +46,10 @@ module pot_holder(
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin
         panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
+        bent_peg_radius = 3, // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
+        bent_peg_angle = 70, // angle of the bend for bent hook pegs
+        bent_peg_length_straight1 = hole_depth, // length of the straight part of the bent hook peg before the bend
+        bent_peg_length_straight2 = 4, // length of the straight part of the hook that curves up
 
         outer_dia = 50, //outer diameter of the pot holder, including the lip
         inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
@@ -113,6 +117,10 @@ module pot_holder_assembly(
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin 
         panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
+        bent_peg_radius = 3, // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
+        bent_peg_angle = 70, // angle of the bend for bent hook pegs
+        bent_peg_length_straight1 = hole_depth, // length of the straight part of the bent hook peg before the bend
+        bent_peg_length_straight2 = 4, // length of the straight part of the hook that curves up
 
         outer_dia = 50, //outer diameter of the pot holder, including the lip
         inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
@@ -162,6 +170,10 @@ This creates a pegboard pot holder with a lip. it is offsett away from the peg p
         hole_lip=hole_lip,
         peg_offset_x=peg_offset_x,
         peg_offset_z=peg_offset_z,
-        panel_type = panel_type
+        panel_type = panel_type,
+        bent_peg_radius = bent_peg_radius,
+        bent_peg_angle = bent_peg_angle,
+        bent_peg_length_straight1 = bent_peg_length_straight1,
+        bent_peg_length_straight2 = bent_peg_length_straight2
     );
 }

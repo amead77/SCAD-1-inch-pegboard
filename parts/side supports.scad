@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r03";
+version = "v0.1-2026/05/30r05";
 **/
 
 include <peg panel.scad>;
@@ -111,6 +111,10 @@ module side_support(
     peg_offset_x = 12.7, //offset of the first peg pin
     peg_offset_z = 12.7, //offset of the first peg pin          
     panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
+    bent_peg_radius = 3, // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
+    bent_peg_angle = 70, // angle of the bend for bent hook pegs
+    bent_peg_length_straight1 = hole_depth, // length of the straight part of the bent hook peg before the bend
+    bent_peg_length_straight2 = 4, // length of the straight part of the hook that curves up
     
     support_side = "left", //"left", "right", or "both" - which side(s) to put the support on
     support_offset_left_x = 0, //offset of the support from the side of the panel, in mm
@@ -140,7 +144,11 @@ module side_support(
         hole_lip=hole_lip,
         peg_offset_x=peg_offset_x,
         peg_offset_z=peg_offset_z,
-        panel_type = panel_type
+        panel_type = panel_type,
+        bent_peg_radius = bent_peg_radius,
+        bent_peg_angle = bent_peg_angle,
+        bent_peg_length_straight1 = bent_peg_length_straight1,
+        bent_peg_length_straight2 = bent_peg_length_straight2
     );
 
     if (support_side == "right" || support_side == "both") {

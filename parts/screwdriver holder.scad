@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r25";
+version = "v0.1-2026/05/30r27";
 **/
 
 include <peg panel.scad>;
@@ -48,6 +48,10 @@ module screwdriver_holder_assembly(
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin          
         panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
+        bent_peg_radius = 3, // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
+        bent_peg_angle = 70, // angle of the bend for bent hook pegs
+        bent_peg_length_straight1 = hole_depth, // length of the straight part of the bent hook peg before the bend
+        bent_peg_length_straight2 = 4, // length of the straight part of the hook that curves up
         
         screwdriver_dia = 10, //diameter of the screwdriver holder holes.
         screwdriver_square_hole_size_x = 10, //hole size X if using a square hole for the screwdriver holder, ignored for round
@@ -134,7 +138,11 @@ the number of holes is determined by the panel size and the spacing between hole
                 hole_lip = hole_lip,
                 peg_offset_x = peg_offset_x,
                 peg_offset_z = peg_offset_z,
-                panel_type = panel_type
+                panel_type = panel_type,
+                bent_peg_radius = bent_peg_radius,
+                bent_peg_angle = bent_peg_angle,
+                bent_peg_length_straight1 = bent_peg_length_straight1,
+                bent_peg_length_straight2 = bent_peg_length_straight2
             );
         }
 

@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r03";
+version = "v0.1-2026/05/30r05";
 **/
 
 include <peg panel.scad>;
@@ -62,6 +62,10 @@ module hook_rail(
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin        
         panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
+        bent_peg_radius = 3, // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
+        bent_peg_angle = 70, // angle of the bend for bent hook pegs
+        bent_peg_length_straight1 = hole_depth, // length of the straight part of the bent hook peg before the bend
+        bent_peg_length_straight2 = 4, // length of the straight part of the hook that curves up
         hook_dia = 6.0, // diameter of the hook pin
         hook_length = 20, // length of the hook pin
         spacing = 30.0, // spacing between hooks, in mm
@@ -103,7 +107,11 @@ the number of holes is determined by the panel size and the spacing between hole
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin
-            panel_type = panel_type // type of panel hook, standard or bent hook on top
+            panel_type = panel_type, // type of panel hook, standard or bent hook on top
+            bent_peg_radius = bent_peg_radius,
+            bent_peg_angle = bent_peg_angle,
+            bent_peg_length_straight1 = bent_peg_length_straight1,
+            bent_peg_length_straight2 = bent_peg_length_straight2
 
         );
     }

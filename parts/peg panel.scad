@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r33";
+version = "v0.1-2026/05/30r34";
 **/
 
 
@@ -50,7 +50,7 @@ module peg_panel(
     panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
     bent_peg_radius = 3, // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
     bent_peg_angle = 70, // angle of the bend for bent hook pegs
-    bent_peg_length_straight1 = hole_depth, // length of the straight part of the bent hook peg before the bend
+    bent_peg_length_straight1 = 3.5, // length of the straight part of the bent hook peg before the bend
     bent_peg_length_straight2 = 4 // length of the straight part of the hook that curves up
 ) {
     width_pegs = max(1, panel_size[0]);
