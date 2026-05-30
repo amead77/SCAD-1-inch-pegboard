@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r14";
+version = "v0.1-2026/05/30r30";
 **/
 
 
@@ -274,6 +274,28 @@ module assembly() {
             hook_shape = "cylindrical"
         );
     }
+    translate([pegboard_units_to_mm(4), 0, pegboard_units_to_mm(7)]) {
+        hook_rail(
+            panel_size = [
+                3, // in PEG SPACE UNITS, not mm
+                4, // thickness of the panel, in mm
+                1 // in PEG SPACE UNITS, not mm
+            ], 
+            peg_spacing = peg_spacing, //distance between peg centres
+            peg_diameter = peg_diameter, //diameter of the peg pin
+            hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+            hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+            hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+            peg_offset_x = peg_offset_x, //offset of the first peg pin
+            peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            hook_dia = 6.0, 
+            hook_length = 20, 
+            spacing = 30.0,
+            offset_x = 5,
+            offset_z = 0.0,
+            hook_shape = "square"
+        );
+    }
     translate([pegboard_units_to_mm(0), 0, pegboard_units_to_mm(4)]) {
         spirit_level_holder(
             panel_size = [
@@ -374,7 +396,7 @@ module assembly() {
 
         );
     }
-    translate([pegboard_units_to_mm(7), 0, pegboard_units_to_mm(7)]) {
+    translate([pegboard_units_to_mm(8), 0, pegboard_units_to_mm(7)]) {
         screwdriver_holder_assembly(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -400,10 +422,12 @@ module assembly() {
             screwdriver_rail_position = 0,
             screwdriver_hole_spacing = 25,
             screwdriver_hole_chamfer_width = 1, // chamfer for the screwdriver holes
-            screwdriver_hole_chamfer_depth = 5 // depth of the chamfer for the screwdriver holes
+            screwdriver_hole_chamfer_depth = 5, // depth of the chamfer for the screwdriver holes
+            screwdriver_lip_z = 1, // how high the lip that holds the screwdriver in place is above the base of the holder, in mm. 0 means no lip.
+            screwdriver_lip_y = 5 // how far the lip that holds the screwdriver in place extends in the y axis, in mm. 0 means no lip.
         );
     }
-    translate([pegboard_units_to_mm(11), 0, pegboard_units_to_mm(7)]) {
+    translate([pegboard_units_to_mm(12), 0, pegboard_units_to_mm(7)]) {
         side_support(
             panel_size = [
                 3, // in PEG SPACE UNITS, not mm
@@ -485,7 +509,7 @@ module assembly() {
         );
     }
     color("red") {
-        translate([0, -10, 0]) {
+        translate([0, -4, 0]) {
             pegboard(panel_size = [
                 20, // in PEG SPACE UNITS, not mm
                 3.2, // thickness of the panel, in mm

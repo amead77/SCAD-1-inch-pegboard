@@ -6,3 +6,7 @@
 !*.md
 !images/
 !images/**
+!parts/
+!parts/**
+!parts-viewonly/
+!parts-viewonly/**
