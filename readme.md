@@ -19,6 +19,10 @@ Print settings for supports I used were:
 
 Very little special setup, just make sure the pegs are tree-supported. Normal supports not recommended.
 
+Licence is CC-non commerical
+
+AI used was co-pilot to refactor and help fix my mistakes. co-pilot is very good at that, but cannot (in my experience) create a openscad model from scratch.
+
 
 Anyway, if you like the design, you're welcome to buy me a coffee:
 
@@ -58,6 +62,10 @@ How about some lips?
 
 ![screwdd](images/screwdriver-lips.png)
 
+You can also have Square Holes, for things like slotting in a vernier or something
+
+![screwde](images/screwd-square.png)
+
 Some hooks for hooky stuff, looks a bit jank because I didn't want to math out a curve, plus printing a upwards curve means supports for overhang.
 
 ![hooks](images/hooks.png)
@@ -88,7 +96,24 @@ Want a reinforced back to it? Sure!
 
 ![pegboard2](images/pegboard-back.png)
 
+Some photos of what I've printed so far. Still printing more...
 
-Licence is CC-non commerical
+![a](images/20260530_161015.jpg)
 
-AI used was co-pilot to refactor and fix my mistakes. co-pilot is very good at that, but cannot create a openscad model from scratch.
+![a](images/20260530_161033.jpg)
+
+![a](images/20260530_161052.jpg)
+
+![a](images/20260530_161106.jpg)
+
+![a](images/20260530_182736.jpg)
+
+![a](images/20260530_183336.jpg)
+
+![a](images/20260530_183439.jpg)
+
+![a](images/20260530_183600.jpg)
+
+![a](images/20260530_183624.jpg)
+
+
