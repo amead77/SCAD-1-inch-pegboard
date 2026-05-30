@@ -28,6 +28,10 @@ Anyway, if you like the design, you're welcome to buy me a coffee:
 
 ![overview](images/overview-assembly.png)
 
+Another view but with some basic models of stuff to show example usage
+
+![overview2](images/overview-assembly2.png)
+
 A look at the back. The number of pegs is defined by the peg units.
 The width and height of the back panel is defined by peg units and peg spacing. If you change to a 25mm peg spacing, it'll be smaller than my 25.4mm spaced ones.
 The thickness of the peg panel back is in MM.

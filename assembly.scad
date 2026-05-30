@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r47";
+version = "v0.1-2026/05/30r128";
 **/
 
 
@@ -24,7 +24,7 @@ include <parts/hooks.scad>;
 include <parts/spirit level.scad>;
 include <parts/side supports.scad>;
 include <parts/pegboard.scad>;
-include <parts-viewonly/spiritlevel.scad>;
+include <parts-viewonly/basic-models.scad>;
 
 
 /* [Choose part] */
@@ -511,6 +511,33 @@ module assembly() {
                 support_side = "left" //["left", "right", "both"]
             );
         }
+        translate([pegboard_units_to_mm(17), 0, pegboard_units_to_mm(7)]) {
+            spirit_level_holder(
+                panel_size = [
+                    3, // in PEG SPACE UNITS, not mm
+                    4, // thickness of the panel, in mm
+                    2 // in PEG SPACE UNITS, not mm
+                ], 
+                peg_spacing = peg_spacing, //distance between peg centres
+                peg_diameter = peg_diameter, //diameter of the peg pin
+                hole_diameter = hole_diameter, //diameter of the pin part that hooks in the pegboard
+                hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
+                hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
+                peg_offset_x = peg_offset_x, //offset of the first peg pin
+                peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                offset_y = 1, // how far the holder is offset from the peg panel, in mm
+                side = "both",
+                level_length = 95, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
+                level_depth_y = 10, //how deep the level is in the Y axis.
+                level_height_z = 8, //how high the level is in the Z axis. full height not required.
+                offset_x = -10, // how far from the front edge of the panel the level holder is, in mm
+                clamp_thickness = 2, //thickness of the walls
+                num_levels = 2, // number of levels to hold, they will be spaced evenly along the Y axis, so they protrude outwards.
+                end_cap = 2, //this is how many of the levels have end caps on one side if side <> "none". Always from the outer level inwards.
+                step_level = 5 //if > 0, (in mm) create a stepped level holder, where each level from the front is lower than the one behind it
+            );
+        }
+
     }
     color("red") { //pegboard in red for visibility
         translate([0, -4, 0]) {
@@ -524,11 +551,34 @@ module assembly() {
         }
     }
 
+    //spirit levels for showing in the holders
     translate([5, 6, 110]) {
         spirit_level(width = 500, depth = 20);
     }
     translate([5, 35, 110]) {
         spirit_level(width = 240, depth = 20);
+    }
+    //screwdrivers for showing in the holders
+    translate([238, 25, 152]) {
+        screwdriver(handlelen = 75);
+    }
+    translate([263, 25, 152]) {
+        screwdriver(handlelen = 75);
+    }
+    translate([138, 42, 6]) {
+        pot(height = 70, dia = 68);
+    }
+    translate([423.5, 4, 186]) {
+        bit_holder(bitlen = 40);
+    }
+    translate([423.5, 16, 181]) {
+        bit_holder(bitlen = 20);
+    }
+
+    translate([283, 5, 18]) {
+        rotate([0, 90, 90]) {
+            spanner();
+        }
     }
 
 } //end assembly view
