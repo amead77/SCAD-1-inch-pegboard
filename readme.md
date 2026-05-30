@@ -43,6 +43,10 @@ The same rail, but with a cutout for inserting stuff from the front
 
 ![screwdc](images/screwdriver-chop.png)
 
+How about some lips?
+
+![screwdd](images/screwdriver-lips.png)
+
 Some hooks for hooky stuff, looks a bit jank because I didn't want to math out a curve, plus printing a upwards curve means supports for overhang.
 
 ![hooks](images/hooks.png)
