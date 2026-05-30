@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r14";
+version = "v0.1-2026/05/30r24";
 **/
 
 include <peg panel.scad>;
@@ -47,7 +47,11 @@ module screwdriver_holder_assembly(
         hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin          
+        
         screwdriver_dia = 10, //diameter of the screwdriver holder holes.
+        screwdriver_square_hole_size_x = 10, //hole size X if using a square hole for the screwdriver holder, ignored for round
+        screwdriver_square_hole_size_y = 10, //hole size Y if using a square hole for the screwdriver holder
+        screwdriver_shape = "round", // shape of the screwdriver holder holes. "round" or "square"
         screwdriver_hole_spacing = 25.4, //spacing between screwdriver holes
         screwdriver_hole_chamfer_width = 1, // chamfer for the screwdriver holes
         screwdriver_hole_chamfer_depth = 5, // depth of the chamfer for the screwdriver holes
@@ -82,8 +86,14 @@ the number of holes is determined by the panel size and the spacing between hole
                 }
                 // screwdriver holes
                 for (i = [0:hole_count - 1]) {
-                    translate([offset_x + i * screwdriver_hole_spacing, offset_y, screwdriver_rail_position - 5]) {
-                        cylinder(d = screwdriver_dia, h = base_thickness+screwdriver_lip_z + 10); // extra height to ensure it cuts through the base
+                    if (screwdriver_shape == "round") {
+                        translate([offset_x + i * screwdriver_hole_spacing, offset_y, screwdriver_rail_position - 5]) {
+                            cylinder(d = screwdriver_dia, h = base_thickness+screwdriver_lip_z + 10); // extra height to ensure it cuts through the base
+                        }
+                    } else if (screwdriver_shape == "square") {
+                        translate([offset_x + i * screwdriver_hole_spacing, offset_y, screwdriver_rail_position+((base_thickness+screwdriver_lip_z + 10)/2) - 5]) {
+                            cube([screwdriver_square_hole_size_x, screwdriver_square_hole_size_y, base_thickness+screwdriver_lip_z + 10], center = true); // extra height to ensure it cuts through the base
+                        }
                     }
                     translate([
                         offset_x + i * screwdriver_hole_spacing,

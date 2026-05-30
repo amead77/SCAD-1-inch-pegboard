@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r128";
+version = "v0.1-2026/05/30r132";
 **/
 
 
@@ -56,8 +56,14 @@ peg_offset_x = 12.7;
 peg_offset_z = 12.7; 
 
 /* [screwdriver rail specific dimensions] */
-//diameter of the screwdriver holder holes.
+//diameter of the screwdriver holder holes. Ignored for square holes
 screwdriver_dia = 3.5;  // 0.1
+//hole size X if using a square hole for the screwdriver holder, ignored for round
+sd_square_hole_size_x = 5; // 0.1
+//hole size Y if using a square hole for the screwdriver holder
+sd_square_hole_size_y = 5; // 0.1
+//screw driver hole shape
+sd_shape = "round"; //["round", "square"]
 //thickness of the base
 sd_base_thickness = 15;  // 0.1
 //offset of the screwdriver holes from the side, in mm
@@ -594,7 +600,11 @@ if (which == "screwdriver_holder") {
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            
             screwdriver_dia = screwdriver_dia, 
+            screwdriver_square_hole_size_x = sd_square_hole_size_x,
+            screwdriver_square_hole_size_y = sd_square_hole_size_y,
+            screwdriver_shape = sd_shape,
             screwdriver_rail_cutout_width = sd_screwdriver_rail_cutout_width, // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
             screwdriver_rail_cutout_chamfer_angle = sd_screwdriver_rail_cutout_chamfer_angle, // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
 
