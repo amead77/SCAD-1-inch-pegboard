@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r13";
+version = "v0.1-2026/05/30r14";
 **/
 
 
@@ -42,6 +42,8 @@ peg_spacing = 25.4;
 peg_diameter = 4.0; 
 //diameter of the pin part that hooks in the pegboard
 hole_diameter = 6.0; 
+//peg undersizing to fit in the hole, in mm. This is subtracted from the hole_diameter
+peg_undersize = 0.2;
 //depth of the peg pin that fits in the pegboard
 hole_depth = 3.5; 
 // depth of the lip that catches inside the pegboard holes

@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/16r02";
+version = "v0.1-2026/05/30r02";
 **/
 
 
@@ -17,6 +17,7 @@ module peg_panel(
     peg_spacing = 25.4, //distance between peg centres
     peg_diameter = 4.0, //diameter of the peg pin
     hole_diameter = 6.0, //diameter of the pin part that hooks in the pegboard
+    peg_undersize = 0.2, //peg undersizing to fit in the hole, in mm. This is subtracted from the hole_diameter
     hole_depth = 3.5, //depth of the peg pin that fits in the pegboard
     hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
     peg_offset_x = 12.7, //offset of the first peg pin
@@ -49,8 +50,8 @@ module peg_panel(
                         // shaft: fits into the pegboard hole
                         cylinder(d = peg_diameter, h = hole_depth);
                         // lip: wider tip that catches behind the hole
-                        translate([0, -(peg_diameter/4), hole_depth])
-                            cylinder(d = hole_diameter, h = hole_lip);
+                        translate([0, -((peg_diameter/4)-peg_undersize/2), hole_depth])
+                            cylinder(d = hole_diameter - peg_undersize, h = hole_lip);
                     }
                 }
             }

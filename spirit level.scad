@@ -7,7 +7,7 @@ A spirit level holder for moi pegboard, also makes open top boxes
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r07";
+version = "v0.1-2026/05/30r08";
 **/
 
 include <hooks.scad>;
@@ -68,6 +68,7 @@ module spirit_level_holder(
     peg_spacing = 25.4, //distance between peg centres
     peg_diameter = 4.0, //diameter of the peg pin
     hole_diameter = 6.0, //diameter of the pin part that hooks in the pegboard
+    peg_undersize = 0.2, //peg undersizing to fit in the hole, in mm. This is subtracted from the hole_diameter
     hole_depth = 3.5, //depth of the peg pin that fits in the pegboard
     hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
     peg_offset_x = 12.7, //offset of the first peg pin
@@ -94,6 +95,7 @@ module spirit_level_holder(
             peg_spacing = peg_spacing,
             peg_diameter = peg_diameter,
             hole_diameter = hole_diameter,
+            peg_undersize = peg_undersize,
             hole_depth = hole_depth,
             hole_lip = hole_lip,
             peg_offset_x = peg_offset_x,
