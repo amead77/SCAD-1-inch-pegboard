@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r132";
+version = "v0.1-2026/05/30r161";
 **/
 
 
@@ -54,6 +54,17 @@ hole_lip = 1.5;
 peg_offset_x = 12.7; 
 //offset of the first peg pin
 peg_offset_z = 12.7; 
+// type of panel hook, standard or bent hook on top
+peg_panel_type = "standard"; // ["standard", "bent_hook"]
+// radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
+peg_bent_peg_radius = 4; //0.1
+// angle of the bend for bent hook pegs
+peg_bent_peg_angle = 70; //0.1
+// length of the straight part of the bent hook peg before the bend
+peg_bent_peg_length_straight1 = 4; //0.1
+// length of the straight part of the hook that curves up
+peg_bent_peg_length_straight2 = 6; //0.1
+
 
 /* [screwdriver rail specific dimensions] */
 //diameter of the screwdriver holder holes. Ignored for square holes
@@ -222,6 +233,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 screwdriver_dia = 10, 
                 screwdriver_rail_cutout_width = sd_screwdriver_rail_cutout_width, // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
                 screwdriver_rail_cutout_chamfer_angle = sd_screwdriver_rail_cutout_chamfer_angle, // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
@@ -250,6 +262,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 inner_dia = 70, 
                 outer_dia = 74, 
                 height = 20, 
@@ -275,6 +288,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 hook_dia = 6.0, 
                 hook_length = 20, 
                 spacing = 30.0,
@@ -297,6 +311,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 hook_dia = 6.0, 
                 hook_length = 20, 
                 spacing = 30.0,
@@ -319,6 +334,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 offset_y = 1, // how far the holder is offset from the peg panel, in mm
                 side = "right",
                 level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
@@ -344,6 +360,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 offset_y = 1, // how far the holder is offset from the peg panel, in mm
                 side = "left",
                 level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
@@ -369,6 +386,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 offset_y = 1, // how far the holder is offset from the peg panel, in mm
                 side = "left",
                 level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
@@ -394,6 +412,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 offset_y = 1, // how far the holder is offset from the peg panel, in mm
                 side = "both",
                 level_length = 75, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
@@ -419,6 +438,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
                 
                 screwdriver_dia = 10, 
                 screwdriver_rail_cutout_width = 3, // width of the cutout in the base for the screwdriver rail. set to 0 for no cutout.
@@ -450,6 +470,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
 
                 support_offset_left_x = 0, //offset of the support from the left side of the panel, in mm
                 support_offset_right_x = 0, //offset of the support from the right side of
@@ -468,7 +489,7 @@ module assembly() {
                 panel_size = [
                     3, // in PEG SPACE UNITS, not mm
                     4, // thickness of the panel, in mm
-                    2 // in PEG SPACE UNITS, not mm
+                    3 // in PEG SPACE UNITS, not mm
                 ], 
                 peg_spacing = peg_spacing, //distance between peg centres
                 peg_diameter = peg_diameter, //diameter of the peg pin
@@ -477,6 +498,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
 
                 support_offset_left_x = 0, //offset of the support from the left side of the panel, in mm
                 support_offset_right_x = 0, //offset of the support from the right side of
@@ -495,7 +517,7 @@ module assembly() {
                 panel_size = [
                     3, // in PEG SPACE UNITS, not mm
                     4, // thickness of the panel, in mm
-                    2 // in PEG SPACE UNITS, not mm
+                    3 // in PEG SPACE UNITS, not mm
                 ], 
                 peg_spacing = peg_spacing, //distance between peg centres
                 peg_diameter = peg_diameter, //diameter of the peg pin
@@ -504,6 +526,7 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
 
                 support_offset_left_x = 0, //offset of the support from the left side of the panel, in mm
                 support_offset_right_x = 0, //offset of the support from the right side of
@@ -531,6 +554,8 @@ module assembly() {
                 hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
                 peg_offset_x = peg_offset_x, //offset of the first peg pin
                 peg_offset_z = peg_offset_z, //offset of the first peg pin             
+                panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
+
                 offset_y = 1, // how far the holder is offset from the peg panel, in mm
                 side = "both",
                 level_length = 95, // length of the spirit level to hold, in mm, not necessarily the same as the actual level, as the full length doesn't need supporting.
@@ -586,7 +611,13 @@ module assembly() {
             spanner();
         }
     }
-
+/*
+    translate([pegboard_units_to_mm(17), 0, pegboard_units_to_mm(3)]) {
+        // Orienting the finished hook vertically relative to a pegboard wall
+        rotate([180, 90, 0]) 
+            bent_cylinder(d=10, l1=10, l2=10, bend_radius=8, angle=70);
+    }
+*/
 } //end assembly view
 
 if (which == "screwdriver_holder") {
@@ -600,7 +631,8 @@ if (which == "screwdriver_holder") {
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
-            
+            panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
+
             screwdriver_dia = screwdriver_dia, 
             screwdriver_square_hole_size_x = sd_square_hole_size_x,
             screwdriver_square_hole_size_y = sd_square_hole_size_y,
@@ -631,6 +663,8 @@ if (which == "screwdriver_holder") {
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
+
             inner_dia = ph_inner_dia, 
             outer_dia = ph_outer_dia, 
             height = ph_height, 
@@ -657,6 +691,8 @@ if (which == "screwdriver_holder") {
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
+
             hook_dia = hook_dia, 
             hook_length = hook_length, 
             spacing = hook_spacing,
@@ -677,6 +713,8 @@ if (which == "screwdriver_holder") {
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
+
             offset_x = sl_offset_x,
             offset_y = sl_offset_y, 
             offset_z = sl_offset_z,
@@ -703,6 +741,7 @@ if (which == "screwdriver_holder") {
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
             peg_offset_z = peg_offset_z, //offset of the first peg pin             
+            panel_type = peg_panel_type, // type of panel hook, standard or bent hook on top
 
             support_offset_left_x = ss_support_offset_left_x, //offset of the support from the left side of the panel, in mm
             support_offset_right_x = ss_support_offset_right_x, //offset of the support from the right side of the panel, in mm

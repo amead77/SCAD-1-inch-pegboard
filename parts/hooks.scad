@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r02";
+version = "v0.1-2026/05/30r03";
 **/
 
 include <peg panel.scad>;
@@ -61,6 +61,7 @@ module hook_rail(
         hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin        
+        panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
         hook_dia = 6.0, // diameter of the hook pin
         hook_length = 20, // length of the hook pin
         spacing = 30.0, // spacing between hooks, in mm
@@ -101,7 +102,8 @@ the number of holes is determined by the panel size and the spacing between hole
             hole_depth = hole_depth, //depth of the peg pin that fits in the pegboard
             hole_lip = hole_lip, // depth of the lip that catches inside the pegboard holes
             peg_offset_x = peg_offset_x, //offset of the first peg pin
-            peg_offset_z = peg_offset_z //offset of the first peg pin             
+            peg_offset_z = peg_offset_z, //offset of the first peg pin
+            panel_type = panel_type // type of panel hook, standard or bent hook on top
 
         );
     }

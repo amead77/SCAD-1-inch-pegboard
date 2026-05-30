@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r02";
+version = "v0.1-2026/05/30r03";
 **/
 
 include <peg panel.scad>;
@@ -110,6 +110,7 @@ module side_support(
     hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
     peg_offset_x = 12.7, //offset of the first peg pin
     peg_offset_z = 12.7, //offset of the first peg pin          
+    panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
     
     support_side = "left", //"left", "right", or "both" - which side(s) to put the support on
     support_offset_left_x = 0, //offset of the support from the side of the panel, in mm
@@ -138,7 +139,8 @@ module side_support(
         hole_depth=hole_depth,
         hole_lip=hole_lip,
         peg_offset_x=peg_offset_x,
-        peg_offset_z=peg_offset_z
+        peg_offset_z=peg_offset_z,
+        panel_type = panel_type
     );
 
     if (support_side == "right" || support_side == "both") {

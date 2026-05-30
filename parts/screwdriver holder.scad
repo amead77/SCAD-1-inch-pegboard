@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r24";
+version = "v0.1-2026/05/30r25";
 **/
 
 include <peg panel.scad>;
@@ -47,6 +47,7 @@ module screwdriver_holder_assembly(
         hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin          
+        panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
         
         screwdriver_dia = 10, //diameter of the screwdriver holder holes.
         screwdriver_square_hole_size_x = 10, //hole size X if using a square hole for the screwdriver holder, ignored for round
@@ -132,7 +133,8 @@ the number of holes is determined by the panel size and the spacing between hole
                 hole_depth = hole_depth,
                 hole_lip = hole_lip,
                 peg_offset_x = peg_offset_x,
-                peg_offset_z = peg_offset_z
+                peg_offset_z = peg_offset_z,
+                panel_type = panel_type
             );
         }
 

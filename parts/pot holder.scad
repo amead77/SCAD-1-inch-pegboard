@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r02";
+version = "v0.1-2026/05/30r04";
 **/
 
 
@@ -44,7 +44,8 @@ module pot_holder(
         hole_depth = 3.5, //depth of the peg pin that fits in the pegboard
         hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
         peg_offset_x = 12.7, //offset of the first peg pin
-        peg_offset_z = 12.7, //offset of the first peg pin 
+        peg_offset_z = 12.7, //offset of the first peg pin
+        panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
 
         outer_dia = 50, //outer diameter of the pot holder, including the lip
         inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
@@ -111,6 +112,7 @@ module pot_holder_assembly(
         hole_lip = 1.5, // depth of the lip that catches inside the pegboard holes
         peg_offset_x = 12.7, //offset of the first peg pin
         peg_offset_z = 12.7, //offset of the first peg pin 
+        panel_type = "standard", // ["standard", "bent_hook"] type of panel hook, standard or bent hook on top
 
         outer_dia = 50, //outer diameter of the pot holder, including the lip
         inner_dia = 45,  //inner diameter of the pot holder, where the pot will sit
@@ -138,7 +140,8 @@ This creates a pegboard pot holder with a lip. it is offsett away from the peg p
                     offset_x = offset_x,
                     base_offset_z = base_offset_z,
                     front_cutout = front_cutout,
-                    number_of_pots = number_of_pots
+                    number_of_pots = number_of_pots,
+                    panel_type = panel_type
                 );
             }
         }
@@ -158,6 +161,7 @@ This creates a pegboard pot holder with a lip. it is offsett away from the peg p
         hole_depth=hole_depth,
         hole_lip=hole_lip,
         peg_offset_x=peg_offset_x,
-        peg_offset_z=peg_offset_z
+        peg_offset_z=peg_offset_z,
+        panel_type = panel_type
     );
 }
