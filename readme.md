@@ -65,6 +65,10 @@ Side support, this is for supporting stuff from the side, can be angled. Stuff l
 
 ![sidesip1](images/side-supports-both.png)
 
+How about a custon pegboard? As many 'oles as you like.
+
+![pegboard](images/pegboard.png)
+
 
 Licence is CC-non commerical
 
