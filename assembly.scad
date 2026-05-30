@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r170";
+version = "v0.1-2026/05/30r171";
 **/
 
 
@@ -55,7 +55,7 @@ peg_offset_x = 12.7;
 //offset of the first peg pin
 peg_offset_z = 12.7; 
 // type of panel hook, standard or bent hook on top
-peg_panel_type = "bent_hook"; // ["standard", "bent_hook"]
+peg_panel_type = "standard"; // ["standard", "bent_hook"]
 // radius of the bend for bent hook pegs, only used if panel_type is "bent_hook"
 peg_bent_peg_radius = 3; //0.1
 // angle of the bend for bent hook pegs
