@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/25r11";
+version = "v0.1-2026/05/30r11";
 **/
 
 include <peg panel.scad>;
@@ -14,6 +14,23 @@ $fn = 64;
 //hole_spacing = 25.4; // 1 inch
 //hole_depth = 3.4;
 //hole_lip = 1.0; // the lip that holds the peg in place
+
+module makerail(rail_width, rail_front_y, base_thickness, screwdriver_lip_z = 3, screwdriver_lip_y = 5) {
+    cube([
+        rail_width, 
+        rail_front_y, 
+        base_thickness
+    ], center = false);
+    if (screwdriver_lip_z > 0 && screwdriver_lip_y > 0) {
+        translate([0, rail_front_y - screwdriver_lip_y, base_thickness]) {
+            cube([
+                rail_width, 
+                screwdriver_lip_y, 
+                screwdriver_lip_z
+            ], center = false);
+        }
+    }
+}
 
 
 module screwdriver_holder_assembly(
@@ -40,13 +57,15 @@ module screwdriver_holder_assembly(
         offset_y = 25, //offset of the screwdriver holder from the peg panel, in mm
         front_edge_offset = 5, // how far the screwdriver holder is offset from the front edge of the peg panel, in mm
         screwdriver_rail_position = 20, //how high above z=0 the screwdriver rail and holes are. in mm
-        hole_spacing = 25.4 // 1 inch - this is pegboard hole spacing, used to calculate the overall size of the panel and the number of holes.
+        screwdriver_lip_z = 0, // how high the lip that holds the screwdriver in place is above the base of the holder, in mm. 0 means no lip.
+        screwdriver_lip_y = 0 // how far the lip that holds the screwdriver in place extends in the y axis, in mm. 0 means no lip.
+        //hole_spacing = 25.4 // 1 inch - this is pegboard hole spacing, used to calculate the overall size of the panel and the number of holes.
     ) {
 /*
 This creates a pegboard screwdriver holder. it is offset away from the peg panel and joined to it.
 the number of holes is determined by the panel size and the spacing between holes.
 */
-    rail_width = panel_size[0] * hole_spacing;
+    rail_width = panel_size[0] * peg_spacing;
     rail_front_y = offset_y + screwdriver_dia + front_edge_offset;
     cutout_run_y = max(0, rail_front_y - offset_y);
     cutout_front_width = screwdriver_rail_cutout_width + 2 * cutout_run_y * tan(screwdriver_rail_cutout_chamfer_angle);
@@ -58,16 +77,12 @@ the number of holes is determined by the panel size and the spacing between hole
             // base of the screwdriver holder
             difference() {
                 translate([0, 0, screwdriver_rail_position]) {
-                    cube([
-                        rail_width, 
-                        rail_front_y, 
-                        base_thickness
-                    ], center = false);
+                    makerail(rail_width, rail_front_y, base_thickness, screwdriver_lip_z, screwdriver_lip_y);
                 }
                 // screwdriver holes
                 for (i = [0:hole_count - 1]) {
                     translate([offset_x + i * screwdriver_hole_spacing, offset_y, screwdriver_rail_position - 5]) {
-                        cylinder(d = screwdriver_dia, h = base_thickness + 10); // extra height to ensure it cuts through the base
+                        cylinder(d = screwdriver_dia, h = base_thickness+screwdriver_lip_z + 10); // extra height to ensure it cuts through the base
                     }
                     translate([
                         offset_x + i * screwdriver_hole_spacing,
@@ -86,7 +101,7 @@ the number of holes is determined by the panel size and the spacing between hole
                             0,
                             screwdriver_rail_position-5
                         ]) {
-                            linear_extrude(height = base_thickness + 10, center = false)
+                            linear_extrude(height = base_thickness + screwdriver_lip_z + 10, center = false)
                                 polygon([
                                     [-(screwdriver_rail_cutout_width / 2), offset_y],
                                     [ (screwdriver_rail_cutout_width / 2), offset_y],

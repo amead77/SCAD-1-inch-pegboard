@@ -13,7 +13,7 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r04";
+version = "v0.1-2026/05/30r13";
 **/
 
 
@@ -74,6 +74,10 @@ sd_front_edge_offset = 5;  // 0.1
 sd_screwdriver_rail_cutout_width = 0;  // 0.1 
 // angle of the chamfer for the screwdriver rail cutout, in degrees. only used if screwdriver_rail_cutout_width > 0
 sd_screwdriver_rail_cutout_chamfer_angle = 20;  // 0.1 
+// how high the lip that holds the screwdriver in place is above the base of the holder, in mm. 0 means no lip.
+sd_screwdriver_lip_z = 1; 
+// how far the lip that holds the screwdriver in place extends in the y axis, in mm. 0 means no lip.
+sd_screwdriver_lip_y = 5; 
 
 /* [pot holder specific dimensions] */
 // the size of what you want to put in it, plus some clearance
@@ -137,7 +141,7 @@ sl_under_reinforce_size = 75;  // 0.1
 // offset the reinforcement because adding side caps to one side only will cause offset reinforcement position
 sl_under_reinforce_offset_x = 0; // 0.1
 // if > 0, (in mm) create a stepped level holder, where each level from the front is lower than the one behind it
-sl_step_level = 0; // 0.1
+sl_step_level = 0; // 0.01
 
 /* [side supports specific dimensions] */
 //offset of the support from the side of the panel, in mm
@@ -514,7 +518,9 @@ if (which == "screwdriver_holder") {
             screwdriver_rail_position = screwdriver_rail_position,
             screwdriver_hole_spacing = screwdriver_hole_spacing,
             screwdriver_hole_chamfer_width = screwdriver_hole_chamfer_width,
-            screwdriver_hole_chamfer_depth = screwdriver_hole_chamfer_depth
+            screwdriver_hole_chamfer_depth = screwdriver_hole_chamfer_depth,
+            screwdriver_lip_y = sd_screwdriver_lip_y,
+            screwdriver_lip_z = sd_screwdriver_lip_z,
         );
     }
 } else if (which == "pot_holder") {
