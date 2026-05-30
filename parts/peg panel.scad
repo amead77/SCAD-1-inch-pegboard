@@ -3,7 +3,7 @@
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r26";
+version = "v0.1-2026/05/30r33";
 **/
 
 
@@ -57,15 +57,14 @@ module peg_panel(
     panel_y = panel_size[1];
     height_pegs = max(1, panel_size[2]);
 
-    // Panel dimensions in mm, with offsets so pegs are not on edges. Except when using bent pegs, where the top peg must be on the edge
+    // Panel dimensions in mm, with offsets so pegs are not on edges. Bent hooks need
+    // a smaller top margin that matches the hook's vertical rise above its insertion point.
     panel_x = (width_pegs - 1) * peg_spacing + 2 * peg_offset_x;
-    plz = 0;
-    if (panel_type == "standard") {
-        plz = 0;
-    } else {
-        plz = peg_offset_z;
-    }
-    panel_z = ((height_pegs - 1) * peg_spacing + 2 * peg_offset_z) - plz;
+    bent_hook_top_rise =peg_diameter /2;// bent_peg_radius * (1 - cos(bent_peg_angle))        + bent_peg_length_straight2 * sin(bent_peg_angle)        + (peg_diameter / 2) * cos(bent_peg_angle);
+    top_margin_z = panel_type == "bent_hook"
+        ? min(peg_offset_z, bent_hook_top_rise)
+        : peg_offset_z;
+    panel_z = (height_pegs - 1) * peg_spacing + peg_offset_z + top_margin_z;
 
     peg_count_x = width_pegs;
     peg_count_z = height_pegs;
