@@ -7,10 +7,10 @@ A spirit level holder for moi pegboard, also makes open top boxes
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r08";
+version = "v0.1-2026/05/30r11";
 **/
 
-include <hooks.scad>;
+include <peg panel.scad>;
 $fn = 64;
 
 

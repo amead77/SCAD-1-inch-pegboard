@@ -13,7 +13,7 @@ Maybe next year.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r00";
+version = "v0.1-2026/05/30r02";
 **/
 
 include <peg panel.scad>;

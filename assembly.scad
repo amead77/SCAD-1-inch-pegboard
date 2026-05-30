@@ -13,17 +13,17 @@ you're making on the back.
 /**
 //next 2 lines used only by my 'on save' script. can be ignored otherwise.
 //AUTO-V
-version = "v0.1-2026/05/30r30";
+version = "v0.1-2026/05/30r31";
 **/
 
 
 
-include <screwdriver holder.scad>;
-include <pot holder.scad>;
-include <hooks.scad>;
-include <spirit level.scad>;
-include <side supports.scad>;
-include <pegboard.scad>;
+include <parts/screwdriver holder.scad>;
+include <parts/pot holder.scad>;
+include <parts/hooks.scad>;
+include <parts/spirit level.scad>;
+include <parts/side supports.scad>;
+include <parts/pegboard.scad>;
 
 /* [Choose part] */
 // assembly view all parts are fixed, changing 'which' gives you customising options
